@@ -1,0 +1,440 @@
+/*------------------------------------------------------------------
+[Imports]
+------------------------------------------------------------------*/
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+
+
+/*------------------------------------------------------------------
+1. [Main]
+------------------------------------------------------------------*/
+html, body {
+	margin: 0;
+	padding: 0;
+	background: #313131;
+	font-family: 'Lato', sans-serif;
+	text-rendering: geometricPrecision;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow:hidden;
+	height: 100%;
+}
+
+.page-container {
+	height:100%;
+	float-left;
+}
+
+.main {
+	max-width:100%;
+	position: absolute;
+	float:right;
+	left:473px;
+}
+
+* {
+	-webkit-transform-origin: center center;
+	-ms-transform-origin: center center;
+	-o-transform-origin: center center;
+}
+/*------------------------------------------------------------------
+2. [Typography]
+------------------------------------------------------------------*/
+
+h3 {
+	margin: 20px 30px;
+}
+
+hr {
+	margin: 5px 30px;
+	border: 0;
+	height: 1px;
+	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+
+text {
+	font-weight: 300;
+}
+
+.sidebar-title {
+	line-height:1.3;
+	font-size: 32px;
+	text-transform:uppercase;
+	text-align:center;
+}
+
+#geothermal {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	background: rgba(0,0,0,1.0);
+	text-transform:uppercase;
+	padding: 2px 10px;
+	letter-spacing:-2px;
+}
+
+.value {
+	font-size: 40px;
+	font-weight: 400;
+	width:60%;
+	line-height:1;
+}
+
+.units {
+	font-size: 15px;
+	min-width:300px;
+	font-weight: 300;
+}
+
+/*------------------------------------------------------------------
+3. [Glyphs]
+------------------------------------------------------------------*/
+
+.title-glyph {
+	font-size: 70px;
+	margin: 0px 20px;
+}
+
+#sidebar .nav>li>i {
+	color:#FF5F24;
+	font-size: 36px;
+}
+
+/*------------------------------------------------------------------
+4. [Color codes]
+
+# BG: #363636
+# Default: #494949
+HOT # Dark Red: #FF0000
+COLD # Dark Blue: #003399
+WARM # Orange: #FF5F24
+COOL # Light Blue: #0099CC
+------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------
+5. [Event Classes]
+------------------------------------------------------------------*/
+.temp,
+.flow {
+	-webkit-transform: scale(1.0,1.0);
+	-moz-transform: scale(1.0,1.0);
+	-ms-transform: scale(1.0,1.0);
+	-o-transform: scale(1.0,1.0);
+	transform: scale(1.0,1.0);
+}
+
+.temp:hover,
+.flow:hover {
+	cursor:pointer;
+	-webkit-transform: scale(1.2,1.2);
+	-moz-transform: scale(1.2,1.2);
+	-ms-transform: scale(1.2,1.2);
+	-o-transform: scale(1.2,1.2);
+	transform: scale(1.2,1.2);
+
+	-webkit-transition: 0.3s ease-out;
+	-moz-transition: 0.3s ease-out;
+	-ms-transition: 0.3s ease-out;
+	-o-transition: 0.3s ease-out;
+	transition: 0.3s ease-out;
+}
+
+.valve {
+	-webkit-transition: 1s ease-out;
+	-moz-transition: 1s ease-out;
+	-ms-transition: 1s ease-out;
+	-o-transition: 1s ease-out;
+	transition: 1s ease-out;
+}
+
+.pop {
+	-webkit-animation: pop 0.4s 1;
+	-o-animation: pop 0.4s 1;
+	animation: pop 0.4s 1;
+}
+
+/*------------------------------------------------------------------
+6. [Animation]
+------------------------------------------------------------------*/
+@-webkit-keyframes pop {
+	from {-webkit-transform: scale(0,0);}
+
+	to {-webkit-transform: scale(1,1);}
+}
+@-o-keyframes pop {
+	from {-o-transform: scale(0,0);}
+
+	to {-o-transform: scale(1,1);}
+}
+@-moz-keyframes pop {
+	from {-moz-transform: scale(0,0);}
+
+	to {-moz-transform: scale(1,1);}
+}
+@keyframes pop {
+	from {
+		-ms-transform: scale(0,0);
+		transform: scale(0,0);}
+
+		to {-ms-transform: scale(1,1);
+			transform: scale(1,1);}
+		}
+
+/*------------------------------------------------------------------
+7. [Sidebar]
+------------------------------------------------------------------*/
+
+#sidebar {
+	position:fixed;
+	float:left;
+	width:473px;
+	top: 0;
+	z-index:10;
+	height:100%;
+}
+
+#sidebarWrap {
+	position:absolute;
+	height: 100%;
+	color:#ffffff;
+	background:#FF5F24;
+	text-align:left;
+	width:473px;
+}
+
+.row {margin:0;}
+
+.row-offcanvas {
+	position: relative;
+	-webkit-transition: all 0.25s ease-out;
+	-moz-transition: all 0.25s ease-out;
+	transition: all 0.25s ease-out;
+}
+
+.row-offcanvas-left {
+	height:100%;
+	max-width:100%;
+	overflow:visible;
+	-webkit-transform: translate3d(-473px,0,0);
+	-moz-transform: translate3d(-473px,0,0);
+	-ms-transform: translate3d(-473px,0,0);
+	-o-transform: translate3d(-473px,0,0);
+	transform: translate3d(-473px,0,0);
+}
+
+.row-offcanvas-left.active {
+	height:100%;
+	-webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	-ms-transform: translate3d(0,0,0);
+	-o-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.sidebar-offcanvas {
+	min-width:320px;
+	padding: 0;
+}
+
+.sidebar-offcanvas.active {
+
+}
+
+#menu-toggle {
+	position: absolute;
+	left: 100%;
+	z-index: 11;
+	display: block;
+	text-align: center;
+	font-size: 30px;
+	color: #FFFFFF;
+	width: 60px;
+	height: 60px;
+	cursor: pointer;
+	content: "";
+	background: rgba(0,0,0,.25);
+}
+
+#menu-toggle:hover {
+	color: #000000;
+	background: rgba(255,255,255,.9);
+	-webkit-transition: all .40s ease-in-out;
+	-moz-transition: all .40s ease-in-out;
+	-ms-transition: all .40s ease-in-out;
+	-o-transition: all .40s ease-in-out;
+	transition: all .40s ease-in-out;
+}
+
+.fa-bars {
+	line-height:2;
+}
+
+
+#sidebarWrap .nav{
+	margin-top:60px;
+	width:100%;
+	clear: both;
+}
+
+#sidebarWrap .nav>li {
+	padding: 10px 15px;
+	padding-right:40px;
+	display:inline-block;
+	width:100%;
+	color: rgba(255,255,255,.95);
+}
+
+
+#sidebarWrap .nav>li>a {
+	padding: 5px 2px;
+	vertical-align:text-top;
+}
+
+#sidebarWrap .nav>li>a>img {
+	max-width: 14px;
+}
+
+#sidebarWrap .nav>li>a:hover, #sidebar .nav>li>a:focus {
+	text-decoration: none;
+	background-color: transparent;
+}
+
+.sidebar-left {
+	float:left; clear:left; width:60%;
+}
+
+.sidebar-right {
+	float:right; text-align:right; clear:right; width:80%;
+
+}
+
+.logo {
+	display: inline-block;
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+}
+
+.glogo {
+	-webkit-transform: scale(0.3,0.3);
+	-moz-transform: scale(0.3,0.3);
+	-ms-transform: scale(0.3,0.3);
+	-o-transform: scale(0.3,0.3);
+	transform: scale(0.3,0.3);
+}
+
+
+
+/*------------------------------------------------------------------
+8. [Effects]
+------------------------------------------------------------------*/
+
+.shadow {
+	-moz-box-shadow:    inset -8px 0px 16px -6px #000000;
+	-webkit-box-shadow: inset -8px 0px 16px -6px #000000;
+	box-shadow:         inset -8px 0px 16px -6px #000000;
+}
+
+/*------------------------------------------------------------------
+9. [Buttons]
+------------------------------------------------------------------*/
+
+
+.btn {
+    text-transform: uppercase;
+}
+
+.btn-circle {
+	background: none repeat scroll 0 0 rgba(255,255,255,1);
+	color: rgba(255,255,255,.95);
+	border: 2px solid #ffffff;
+    border-radius: 60px;
+    font-size: 50px;
+    padding: 6px 8px;
+    width: 65px;
+    height: 65px;
+}
+
+@media screen and (max-width: 1760px){
+	.main {
+		left:320;
+	}
+
+	#menu-toggle {
+		font-size: 20px;
+		width: 40px;
+		height: 40px;
+	}
+
+	.value {
+		line-height:1.5;
+		font-size: 23px;
+		font-weight: 300;
+		width:60%;
+	}
+
+	.units {
+		font-size: 10px;
+		min-width:200px;
+		font-weight: 300;
+	}
+
+	#sidebarWrap .nav{
+		margin-top:20px;
+		width:100%;
+		clear: both;
+	}
+
+	#sidebarWrap .nav>li {
+		padding: 6px 15px;
+		padding-right:20px;
+	}
+	
+	#sidebar .nav>li>i {
+		font-size: 26px;
+	}
+	
+	.sidebar-title {
+		font-size: 26px;
+		text-transform:uppercase;
+		text-align:center;
+	}
+
+	#sidebar {
+		width:320px;
+	}
+
+	#sidebarWrap {
+		width:320px;
+	}
+
+	.row-offcanvas-left {
+		-webkit-transform: translate3d(-320px,0,0);
+		-moz-transform: translate3d(-320px,0,0);
+		-ms-transform: translate3d(-320px,0,0);
+		-o-transform: translate3d(-320px,0,0);
+		transform: translate3d(-320px,0,0);
+	}
+
+	.row-offcanvas-left.active {
+		-webkit-transform: translate3d(0,0,0);
+		-moz-transform: translate3d(0,0,0);
+		-ms-transform: translate3d(0,0,0);
+		-o-transform: translate3d(0,0,0);
+		transform: translate3d(0,0,0);
+	}
+
+	.btn-circle {
+	    width: 50px;
+	    height: 50px;
+	}
+
+}
+
+@media screen and (max-height: 600px){
+	.logo {
+		display:none;
+	}
+}
