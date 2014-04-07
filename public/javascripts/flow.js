@@ -134,7 +134,6 @@ function Flow(placeholderName, configuration)
                 .attr("x", this.config.cx - (this.config.cx * 0.98))
                 .attr("y", this.config.cy - (this.config.cy * 1.25))
                     .attr("text-anchor", "middle")
-                    .attr("fill", defaultColor())
                     .style("font-size", fontSize + "px")
                     .text(this.config.label);
 		
@@ -194,7 +193,7 @@ function Flow(placeholderName, configuration)
 	}
 	
 	
-	this.redraw = function(value, peak)
+	this.redraw = function(value, peak, duration)
 	{
 		var pointerContainer = this.body.select(".pointerContainer");
 		
@@ -202,7 +201,7 @@ function Flow(placeholderName, configuration)
 		
 		var pointer = pointerContainer.selectAll("path");
 		pointer.transition()
-					.duration(800)
+					.duration(duration)
 					.delay(0)
 					.ease("ease-in-out")
 					.attrTween("transform", function()
