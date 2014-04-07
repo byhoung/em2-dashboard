@@ -39,7 +39,8 @@ function initializeWindow(){
 
 	svgbody = d3.select(".main").append("svg:svg")
 			.attr("class", "body")
-			.attr("xmlns", "http://www.w3.org/1999/xlink")
+			.attr("xmlns", "http://www.w3.org/2000/svg")
+			.attr("version", "1.1")
 			.attr("viewBox", "0 0 1400 885")
 			.attr("preserveAspectRatio", "xMidYMid meet");
 
@@ -130,7 +131,7 @@ function initializeWindow(){
 
   filter.append("feGaussianBlur")
       .attr("in", "SourceAlpha")
-      .attr("stdDeviation", 3)
+      .attr("stdDeviation", 1)
       .attr("result", "blur");
   filter.append("feOffset")
       .attr("in", "blur")
@@ -283,12 +284,12 @@ function createPaths()
 	createPath("valve2","valve","m 465.29955,74.682258 c 0,3.567 -0.618,7.211 -1.895,11.146 l -1.462,4.523 h -65.902 l -1.461,-4.523 c -2.492,-7.675 -2.559,-14.005 -0.145,-21.845 l 1.425,-4.601 h 66.266 l 1.423,4.601 c 1.177,3.824 1.751,7.319 1.751,10.699 z")
 	createPath("valve3","valve","m 1142.2086,425.64243 c -3.568,0 -7.213,-0.618 -11.147,-1.895 l -4.522,-1.462 v -65.902 l 4.522,-1.462 c 7.676,-2.491 14.005,-2.558 21.846,-0.144 l 4.599,1.425 v 66.266 l -4.599,1.423 c -3.824,1.177 -7.319,1.751 -10.699,1.751 z")
 	/*Create all flows*/
-	createFlow("f1","F1",0,2500,70,0,249,675);
+	createFlow("f1","F1",0,2500,70,0,243,675);
 	createFlow("f2","F2",0,2500,0,0,732,75);
 	createFlow("f3","F3",0,2500,0,0,880,298);
 	createFlow("f4","F4",0,2500,0,0,1034,491);
 	/*Create all temps*/
-	createTemp("t1","T1",30,100,60,0,249,510);
+	createTemp("t1","T1",30,100,60,0,243,510);
     createTemp("t2","T2",30,100,0,0,140,156);
     createTemp("t4","T4",30,100,0,0,324,74);
     createTemp("t4a","T4A",30,100,0,1,535,74);
@@ -345,7 +346,7 @@ function updatetempGauges(index, duration)
 	{
 		var value = Math.round(data[index].modules[key])
 		var peak = 0//getRandomValue(tempgauges[key])
-		tempgauges[key].redraw(value, peak);
+		tempgauges[key].redraw(value, peak, duration);
 	}
 }
 
@@ -402,4 +403,12 @@ function inactive(){
 
 function active(){
 	return "#92CD00";
+}
+
+function gaugeColor(){
+	return "#303030"
+}
+
+function textColor(){
+	return "#dfdfdf"
 }
