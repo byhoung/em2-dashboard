@@ -88,7 +88,6 @@ function Temp(placeholderName, configuration)
                 .attr("x", this.config.cx - (this.config.cx * 0.98))
                 .attr("y", this.config.cy - (this.config.cy * 1.2))
                     .attr("text-anchor", "middle")
-                    .attr("fill", defaultColor())
                     .style("font-size", fontSize + "px")
                     .text(this.config.label);
 
@@ -99,7 +98,6 @@ function Temp(placeholderName, configuration)
                   .attr("y", this.config.cy - (this.config.cy * 0.6))
                   .attr("class", "current")
                   .attr("text-anchor", "middle")
-                  .attr("fill", "#303030")
                   .style("font-size", fontSize + "px")
                   .text(this.config.min + degreeSign);
 
@@ -150,7 +148,7 @@ function Temp(placeholderName, configuration)
 
       this.body.select(".foreground")
         .transition()
-        .duration(750)
+        .duration(duration)
         .styleTween("fill", function()
         {
           return d3.interpolate(newColor, curColor); 
