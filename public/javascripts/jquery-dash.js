@@ -21,21 +21,20 @@ $(function(){
 
   function iterateData(key){
       delay += interval;
-      duration = interval / 7;
-      console.log(delay);
-      console.log("key " + key) 
-      if(key == "1"){
-          timerHandler[key] = setTimeout(function(){
-          updateFlows(key, duration);
-          updatetempGauges(key, duration);
-        }, 1000)
-      } else {
+      duration = interval / 5;
+      console.log(duration);
+      if(key == "1") {
         timerHandler[key] = setTimeout(function(){
+            $(".hour").text("Hour " + key)
+            updateFlows(1, duration);
+            updatetempGauges(1, duration);
+          }, 500)
+      } else {timerHandler[key] = setTimeout(function(){
+          $(".hour").text("Hour " + key)
           updateFlows(key, duration);
           updatetempGauges(key, duration);
         }, delay)
       }
-        
   };  
 
   $( "#slider" ).slider({
