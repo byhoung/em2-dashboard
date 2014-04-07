@@ -97,7 +97,7 @@ text {
 }
 
 #sidebar .nav>li>i {
-	color:#FF5F24;
+	color:#0099CC;
 	font-size: 36px;
 }
 
@@ -198,9 +198,10 @@ COOL # Light Blue: #0099CC
 	position:absolute;
 	height: 100%;
 	color:#ffffff;
-	background:#FF5F24;
+	background:#0099CC;
 	text-align:left;
 	width:473px;
+	padding:25px;
 }
 
 .row {margin:0;}
@@ -278,8 +279,7 @@ COOL # Light Blue: #0099CC
 }
 
 #sidebarWrap .nav>li {
-	padding: 10px 15px;
-	padding-right:40px;
+	padding: 10px 0px;
 	display:inline-block;
 	width:100%;
 	color: rgba(255,255,255,.95);
@@ -310,7 +310,7 @@ COOL # Light Blue: #0099CC
 }
 
 .logo {
-	display: inline-block;
+	display: none;
 	bottom: 0;
 	position: absolute;
 	width: 100%;
@@ -437,4 +437,34 @@ COOL # Light Blue: #0099CC
 	.logo {
 		display:none;
 	}
+}
+
+/*------------------------------------------------------------------
+10. [jQuery UI Controls]
+------------------------------------------------------------------*/
+
+#speed-control {
+	margin: 80px 5px;
+}
+
+#speed {
+	border: 0; 
+	background: rgba(0,0,0,0);
+	color: #FFFFFF; 
+	font-weight: bold;
+}
+
+
+.speed-button {
+	margin: 8px 0px;
+	font-size: 24px;
+	cursor:pointer;
+}
+
+#speed-plus {
+	float:right;
+}
+
+#speed-minus {
+	float:left;
 }
