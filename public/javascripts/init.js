@@ -8,10 +8,10 @@ window.onload = function initialize()
 	// updatePaths()
 	// updateGhx()
 
-	setInterval(updatetempGauges, 6000);
-	setInterval(updateFlows, 3000);
-	setInterval(updatePaths, 5000);
-	setInterval(updateGhx, 5000);
+	//setInterval(updatetempGauges, 6000);
+	//setInterval(updateFlows, 3000);
+	//setInterval(updatePaths, 5000);
+	//setInterval(updateGhx, 5000);
 };
 
 function initializeWindow(){
@@ -326,36 +326,25 @@ function updateGhx() {
 	redrawGhx(value);
 }
 
-function updateFlows()
+function updateFlows(index, duration)
 {
 	for (var key in flows)
-	{
-		var value = getRandomValue(flows[key])
-		var peak = getRandomValue(flows[key])
-		flows[key].redraw(value, peak);
-	}
-	// var gkey = Object.keys(flows);
-	// for (var j=0; j<gkey.length; j++){
-	// 	var jkey = Object.keys(jsonTemp);
-	// 	for (var i=0; i<jkey.length; i++) {
-	// 		var index = jkey[i];
-	// 		var gindex = gkey[j];
-	// 		if(index == gindex){
-	// 			var value = jsonTemp[index].temp;
-	// 			var peak = jsonTemp[index].peak;
-	// 			flows[gindex].redraw(value);
-	// 				    	//flows[gindex].rePeak(peak);
-	// 		}
-	// 	}
-	// }
+		{
+			if (flows.hasOwnProperty(key)) 
+			{
+				var value = Math.round(data[index].modules[key])
+				var peak = 0//getRandomValue(flows[key])
+				flows[key].redraw(value, peak, duration);
+			}
+		}
 }
 
-function updatetempGauges()
+function updatetempGauges(index, duration)
 {
 	for (var key in tempgauges)
 	{
-		var value = getRandomValue(tempgauges[key])
-		var peak = getRandomValue(tempgauges[key])
+		var value = Math.round(data[index].modules[key])
+		var peak = 0//getRandomValue(tempgauges[key])
 		tempgauges[key].redraw(value, peak);
 	}
 }
