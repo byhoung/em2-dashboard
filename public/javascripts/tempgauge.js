@@ -75,40 +75,39 @@ function Temp(placeholderName, configuration)
 
     this.body
                 .append("circle")
+                .attr("class", "pointerContainer")
                 .attr("fill", "#dfdfdf")
                 .attr("r", this.config.inner)
                 .attr("r", this.config.inner)
-                .attr("filter", "url(#dropshadow)");
+                .attr("filter", "url(#dropshadow)")
+                .attr("fill", "url(#gradient)");
 
     var midValue = (this.config.min + this.config.max) / 2;
 
     fontSize = Math.round(this.config.size / 8);
     this.body
                 .append("text")
-                .attr("x", this.config.cx - (this.config.cx * 0.98))
-                .attr("y", this.config.cy - (this.config.cy * 1.2))
+                .attr("x", this.config.cx - (this.config.cx))
+                .attr("y", this.config.cy - (this.config.cy * 1.35))
                     .attr("text-anchor", "middle")
                     .style("font-size", fontSize + "px")
                     .text(this.config.label);
 
-    fontSize = Math.round(this.config.size / 3.2);
+    fontSize = Math.round(this.config.size / 3);
     var current = this.body
                   .append("text")
                   .attr("x", this.config.cx - (this.config.cx * 0.92))
-                  .attr("y", this.config.cy - (this.config.cy * 0.6))
+                  .attr("y", this.config.cy - (this.config.cy * 0.7))
                   .attr("class", "current")
                   .attr("text-anchor", "middle")
                   .style("font-size", fontSize + "px")
                   .text(this.config.min + degreeSign);
 
     //console.log(this.this.body.select("d"));
-    this.redraw(this.config.min, 0);
+    this.redraw(this.config.min, 0, 500);
   }
 
-    
-
-
-    this.redraw = function(value, peak)
+    this.redraw = function(value, peak, duration)
     {
       var degreeValue = this.valueToDegrees(value);
       var pointerValue = this.valueToRadians(value);
@@ -140,9 +139,7 @@ function Temp(placeholderName, configuration)
                 break;
             }
 
-      //var current = this.body.select(".tempContainer");
-
-      this.body.select(".current")
+      var tempValue = this.body.selectAll(".current")
         .transition()
         .text(value + degreeSign);
 
@@ -177,7 +174,7 @@ function Temp(placeholderName, configuration)
 
       this.body.selectAll(".peak")
             .transition()
-            .duration(800)
+            .duration(duration)
             .delay(0)
             .attr("x1", point1.x)
             .attr("y1", point1.y)

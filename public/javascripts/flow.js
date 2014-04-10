@@ -52,6 +52,7 @@ function Flow(placeholderName, configuration)
 					.attr("class", "flow");
 
 		gaugeContainer = this.body.append("circle")
+					.attr("class", "flowWrap")
 					.attr("r", 0.9 * this.config.raduis)
 					.attr("fill", defaultColor())
 					//.attr("stroke", "#000")
@@ -120,38 +121,46 @@ function Flow(placeholderName, configuration)
 							.enter()
 								.append("svg:path")
 									.attr("d", pointerLine)
-									.attr("fill", "#dfdfdf")
+									.attr("fill", "url(#gradient)")
 									.style("fill-opacity", 1)
 
 					
 		pointerContainer.append("svg:circle")
 							.attr("r", 0.7 * this.config.raduis)
 							.attr("fill", "#dfdfdf")
-							.style("opacity", 1);
+							.style("opacity", 1)
+							.attr("fill", "url(#gradient)");
 
 		var fontSize = Math.round(this.config.size / 8.4);
 		pointerContainer.append("text")
-                .attr("x", this.config.cx - (this.config.cx * 0.98))
-                .attr("y", this.config.cy - (this.config.cy * 1.25))
+                .attr("x", this.config.cx - (this.config.cx))
+                .attr("y", this.config.cy - (this.config.cy * 1.35))
                     .attr("text-anchor", "middle")
                     .style("font-size", fontSize + "px")
                     .text(this.config.label);
 		
-		var fontSize = Math.round(this.config.size / 4.2);
+		var fontSize = Math.round(this.config.size / 3.4);
 		pointerContainer.append("svg:text") 
 						.attr("x", this.config.cx - (this.config.cx * 1))
-          				.attr("y", this.config.cy - (this.config.cy * 0.8))
+          				.attr("y", this.config.cy - (this.config.cy * 0.75))
 						.attr("text-anchor", "middle")
 						.attr("class", "current")
+						.style("font-size", fontSize + "px");
+
+		var fontSize = Math.round(this.config.size / 11);
+		pointerContainer.append("svg:text") 
+						.attr("x", this.config.cx - (this.config.cx * 1))
+          				.attr("y", this.config.cy - (this.config.cy * 0.55))
+						.attr("text-anchor", "middle")
 						.style("font-size", fontSize + "px")
-						.attr("fill", "#303030");
+						.text("gpm");
 
 		peakArc = d3.svg.arc()
 						.startAngle(this.valueToRadians(this.config.min))
 						.innerRadius(0.65 * this.config.raduis)
 						.outerRadius(0.85 * this.config.raduis);
 		
-		this.redraw(this.config.min, 0);
+		this.redraw(this.config.min, 0, 0);
 	}
 	
 	this.buildPointerPath = function(value)
@@ -197,7 +206,18 @@ function Flow(placeholderName, configuration)
 	{
 		var pointerContainer = this.body.select(".pointerContainer");
 		
-		pointerContainer.selectAll(".current").text(value);
+		pointerContainer.selectAll(".current")
+		.transition()
+		.duration(duration)
+			.tween("text", function(){ 
+				var i = d3.interpolate(this.textContent, value),
+	                prec = (value + "").split("."),
+	                round = (prec.length > 1) ? Math.pow(10, prec[1].length) : 1;
+
+	            return function(t) {
+	                this.textContent = Math.round(i(t) * round) / round;
+	            };
+			});
 		
 		var pointer = pointerContainer.selectAll("path");
 		pointer.transition()

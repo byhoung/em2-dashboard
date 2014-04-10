@@ -54,5 +54,9 @@
 	.logo {
 		margin-bottom: 40px;
 	}
+
+	.logo > img {
+		width: 100px;
+	}
     /* Retina-specific stuff here */
 }

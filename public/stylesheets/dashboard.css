@@ -2,21 +2,23 @@
 [Imports]
 ------------------------------------------------------------------*/
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Oswald:300,400,700);
 
 
 /*------------------------------------------------------------------
-1. [Main]
+[Main]
 ------------------------------------------------------------------*/
 html, body {
 	margin: 0;
 	padding: 0;
-	background: #313131;
-	font-family: 'Lato', sans-serif;
+	background: #060606 url(/assets/images/bg_trillium.jpg) no-repeat;
+	background-size: 100% auto;
+	font-family: 'Oswald', sans-serif;
 	text-rendering: geometricPrecision;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	overflow:hidden;
-	height: 100%;
+	width:100%;
 }
 
 .page-container {
@@ -25,10 +27,10 @@ html, body {
 }
 
 .main {
-	max-width:100%;
 	position: absolute;
 	float:right;
 	left:473px;
+	width: 100%;
 }
 
 * {
@@ -36,8 +38,29 @@ html, body {
 	-ms-transform-origin: center center;
 	-o-transform-origin: center center;
 }
+
+.main > svg {
+	position:absolute;
+	top:0;
+	left:0;
+	shape-rendering: geometricPrecision;
+	-webkit-box-sizing: none;
+	-moz-box-sizing: none;
+	box-sizing: none;
+}
+
 /*------------------------------------------------------------------
-2. [Typography]
+[Gauges]
+------------------------------------------------------------------*/
+
+.flowWrap {
+	-webkit-box-shadow:inset 0 0 30px black;
+	-moz-box-shadow:inset 0 0 30px black;
+	box-shadow:inset 0 0 30px black;
+}
+
+/*------------------------------------------------------------------
+[Typography]
 ------------------------------------------------------------------*/
 
 h3 {
@@ -48,14 +71,17 @@ hr {
 	margin: 5px 30px;
 	border: 0;
 	height: 1px;
-	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-	background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-	background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
-	background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+	background-image: -webkit-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
+	background-image: -moz-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
+	background-image: -ms-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
+	background-image: -o-linear-gradient(left, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
 }
 
-text {
+.flow>text,
+.temp>text,
+.pointerContainer>text {
 	font-weight: 300;
+	color: #303030;
 }
 
 .sidebar-title {
@@ -65,13 +91,17 @@ text {
 	text-align:center;
 }
 
-#geothermal {
+#geothermal-title {
 	font-family: 'Lato', sans-serif;
 	font-weight: 300;
 	background: rgba(0,0,0,1.0);
 	text-transform:uppercase;
 	padding: 2px 10px;
 	letter-spacing:-2px;
+}
+
+#dashboard-title {
+	font-size: 28px;
 }
 
 .value {
@@ -88,7 +118,7 @@ text {
 }
 
 /*------------------------------------------------------------------
-3. [Glyphs]
+[Glyphs]
 ------------------------------------------------------------------*/
 
 .title-glyph {
@@ -97,23 +127,24 @@ text {
 }
 
 #sidebar .nav>li>i {
-	color:#0099CC;
+	color:#ffffff;
 	font-size: 36px;
+	line-height:1.5;
 }
 
 /*------------------------------------------------------------------
-4. [Color codes]
+[Color codes]
 
 # BG: #363636
 # Default: #494949
 HOT # Dark Red: #FF0000
 COLD # Dark Blue: #003399
 WARM # Orange: #FF5F24
-COOL # Light Blue: #0099CC
+COOL # Light Blue: #009eff
 ------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------
-5. [Event Classes]
+[Event Classes]
 ------------------------------------------------------------------*/
 .temp,
 .flow {
@@ -127,11 +158,11 @@ COOL # Light Blue: #0099CC
 .temp:hover,
 .flow:hover {
 	cursor:pointer;
-	-webkit-transform: scale(1.2,1.2);
-	-moz-transform: scale(1.2,1.2);
-	-ms-transform: scale(1.2,1.2);
-	-o-transform: scale(1.2,1.2);
-	transform: scale(1.2,1.2);
+	-webkit-transform: scale(1.1,1.1);
+	-moz-transform: scale(1.1,1.1);
+	-ms-transform: scale(1.1,1.1);
+	-o-transform: scale(1.1,1.1);
+	transform: scale(1.1,1.1);
 
 	-webkit-transition: 0.3s ease-out;
 	-moz-transition: 0.3s ease-out;
@@ -155,7 +186,7 @@ COOL # Light Blue: #0099CC
 }
 
 /*------------------------------------------------------------------
-6. [Animation]
+[Animation]
 ------------------------------------------------------------------*/
 @-webkit-keyframes pop {
 	from {-webkit-transform: scale(0,0);}
@@ -182,7 +213,36 @@ COOL # Light Blue: #0099CC
 		}
 
 /*------------------------------------------------------------------
-7. [Sidebar]
+[Menu Button]
+------------------------------------------------------------------*/
+#menu-toggle {
+	position: absolute;
+	left: 100%;
+	z-index: 11;
+	display: block;
+	text-align: center;
+	font-size: 30px;
+	color: #FFFFFF;
+	width: 60px;
+	height: 60px;
+	cursor: pointer;
+	content: "";
+	background: rgba(0,0,0,.25);
+	padding:14px;
+}
+
+#menu-toggle:hover {
+	color: #000000;
+	background: rgba(255,255,255,.9);
+	-webkit-transition: all .40s ease-in-out;
+	-moz-transition: all .40s ease-in-out;
+	-ms-transition: all .40s ease-in-out;
+	-o-transition: all .40s ease-in-out;
+	transition: all .40s ease-in-out;
+}
+
+/*------------------------------------------------------------------
+[Sidebar]
 ------------------------------------------------------------------*/
 
 #sidebar {
@@ -198,7 +258,7 @@ COOL # Light Blue: #0099CC
 	position:absolute;
 	height: 100%;
 	color:#ffffff;
-	background:#0099CC;
+	background:#202020;
 	text-align:left;
 	width:473px;
 	padding:25px;
@@ -242,36 +302,6 @@ COOL # Light Blue: #0099CC
 
 }
 
-#menu-toggle {
-	position: absolute;
-	left: 100%;
-	z-index: 11;
-	display: block;
-	text-align: center;
-	font-size: 30px;
-	color: #FFFFFF;
-	width: 60px;
-	height: 60px;
-	cursor: pointer;
-	content: "";
-	background: rgba(0,0,0,.25);
-}
-
-#menu-toggle:hover {
-	color: #000000;
-	background: rgba(255,255,255,.9);
-	-webkit-transition: all .40s ease-in-out;
-	-moz-transition: all .40s ease-in-out;
-	-ms-transition: all .40s ease-in-out;
-	-o-transition: all .40s ease-in-out;
-	transition: all .40s ease-in-out;
-}
-
-.fa-bars {
-	line-height:2;
-}
-
-
 #sidebarWrap .nav{
 	margin-top:60px;
 	width:100%;
@@ -305,40 +335,80 @@ COOL # Light Blue: #0099CC
 }
 
 .sidebar-right {
-	float:right; text-align:right; clear:right; width:80%;
+	float:right; text-align:right; width:80%;
 
 }
 
 .logo {
-	display: none;
-	bottom: 0;
 	position: absolute;
-	width: 100%;
-	text-align: center;
+	right:0;
+	bottom: 0;
+	margin: 25px;
 }
-
-.glogo {
-	-webkit-transform: scale(0.3,0.3);
-	-moz-transform: scale(0.3,0.3);
-	-ms-transform: scale(0.3,0.3);
-	-o-transform: scale(0.3,0.3);
-	transform: scale(0.3,0.3);
-}
-
-
 
 /*------------------------------------------------------------------
-8. [Effects]
+[jQuery UI Controls]
+------------------------------------------------------------------*/
+
+#speed-control {
+	margin: 80px 5px;
+}
+
+#speed {
+	border: 0; 
+	background: rgba(0,0,0,0);
+	color: #FFFFFF; 
+	font-weight: bold;
+}
+
+
+.speed-button {
+	margin: 8px 0px;
+	font-size: 24px;
+	cursor:pointer;
+}
+
+#speed-plus {
+	float:right;
+}
+
+#speed-minus {
+	float:left;
+}
+
+/*------------------------------------------------------------------
+[Rightbar]
+------------------------------------------------------------------*/
+.rightbar {
+	position:relative;
+	min-width:320px;
+	float:right;
+	height:100%;
+	padding:25px;
+}
+
+.rightbar>text {
+	color:#ffffff;
+}
+
+#svg-image {
+	filter:url(#gray-blur);
+	-webkit-transform: translate(-1420px, 0px);
+	transform: translate(-1420px, 0px);
+}
+
+/*------------------------------------------------------------------
+[Effects]
 ------------------------------------------------------------------*/
 
 .shadow {
-	-moz-box-shadow:    inset -8px 0px 16px -6px #000000;
-	-webkit-box-shadow: inset -8px 0px 16px -6px #000000;
-	box-shadow:         inset -8px 0px 16px -6px #000000;
+	-moz-box-shadow:    inset -8px 0px 6px -6px #000000;
+	-webkit-box-shadow: inset -8px 0px 6px -6px #000000;
+	box-shadow:         inset -8px 0px 6px -6px #000000;
 }
 
 /*------------------------------------------------------------------
-9. [Buttons]
+[Buttons]
 ------------------------------------------------------------------*/
 
 
@@ -347,15 +417,44 @@ COOL # Light Blue: #0099CC
 }
 
 .btn-circle {
-	background: none repeat scroll 0 0 rgba(255,255,255,1);
 	color: rgba(255,255,255,.95);
 	border: 2px solid #ffffff;
-    border-radius: 60px;
+    border-radius: 65px;
     font-size: 50px;
-    padding: 6px 8px;
+    padding: 5px;
     width: 65px;
     height: 65px;
 }
+
+.btn:active, .pointerContainer:active {
+	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.325);
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.325);
+}
+
+.fa-cloud {
+	color: #009eff;
+	border: 2px solid #009eff;
+}
+.fa-fire {
+	color: #FF0000;
+	border: 2px solid #FF0000;
+}
+.fa-usd {
+	color: #92CD00;
+	border: 2px solid #92CD00;
+}
+.fa-money {
+	color: #003399;
+	border: 2px solid #003399;
+}
+.fa-sun-o {
+	color: #FF5F24;
+	border: 2px solid #FF5F24;
+}
+
+/*------------------------------------------------------------------
+[Screen Size]
+------------------------------------------------------------------*/
 
 @media screen and (max-width: 1760px){
 	.main {
@@ -366,6 +465,7 @@ COOL # Light Blue: #0099CC
 		font-size: 20px;
 		width: 40px;
 		height: 40px;
+		padding:10px;
 	}
 
 	.value {
@@ -386,18 +486,13 @@ COOL # Light Blue: #0099CC
 		width:100%;
 		clear: both;
 	}
-
-	#sidebarWrap .nav>li {
-		padding: 6px 15px;
-		padding-right:20px;
-	}
 	
 	#sidebar .nav>li>i {
 		font-size: 26px;
 	}
 	
 	.sidebar-title {
-		font-size: 26px;
+		font-size: 28px;
 		text-transform:uppercase;
 		text-align:center;
 	}
@@ -431,40 +526,19 @@ COOL # Light Blue: #0099CC
 	    height: 50px;
 	}
 
-}
+	.logo > img {
+		width: 100px;
+	}
 
-@media screen and (max-height: 600px){
-	.logo {
-		display:none;
+	#sidebarWrap .nav>li {
+		padding: 3px 0px;
+	}
+
+	#speed-control {
+		margin: 40px 5px;
 	}
 }
 
-/*------------------------------------------------------------------
-10. [jQuery UI Controls]
-------------------------------------------------------------------*/
+@media screen and (max-height: 600px){
 
-#speed-control {
-	margin: 80px 5px;
-}
-
-#speed {
-	border: 0; 
-	background: rgba(0,0,0,0);
-	color: #FFFFFF; 
-	font-weight: bold;
-}
-
-
-.speed-button {
-	margin: 8px 0px;
-	font-size: 24px;
-	cursor:pointer;
-}
-
-#speed-plus {
-	float:right;
-}
-
-#speed-minus {
-	float:left;
 }

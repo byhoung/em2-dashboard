@@ -3,6 +3,15 @@ $(function(){
 	// Menu settings
   $('[data-toggle=offcanvas]').click(function() {
 		$('.row-offcanvas-left').toggleClass('active');
+    $('#menu-toggle').toggleClass('active');
+    if($('#menu-toggle').hasClass('active')){
+      $('#menu-glyph').removeClass('fa-bars');
+      $('#menu-glyph').addClass('fa-arrow-left');
+    } else {
+      $('#menu-glyph').removeClass('fa-arrow-left');
+      $('#menu-glyph').addClass('fa-bars');
+    }
+
 	});
   // var sidebarWidth = -Math.abs($('#sidebarWrap').width())
   // $('.row-offcanvas-left').css("-webkit-transform", "translate3d("+sidebarWidth+"px,0,0)");
@@ -11,6 +20,9 @@ $(function(){
   var interval = defaultInterval;
   timerHandler = {};
 
+/*------------------------------------------------------------------
+[Read & Iterate JSON]
+------------------------------------------------------------------*/
 
   $.getJSON('/assets/javascripts/data.json', function (info) {
       data = info
@@ -28,7 +40,7 @@ $(function(){
             $(".hour").text("Hour " + key)
             updateFlows(1, duration);
             updatetempGauges(1, duration);
-          }, 500)
+          }, 1000)
       } else {timerHandler[key] = setTimeout(function(){
           $(".hour").text("Hour " + key)
           updateFlows(key, duration);
@@ -36,6 +48,28 @@ $(function(){
         }, delay)
       }
   };  
+
+/*------------------------------------------------------------------
+[Range Control]
+------------------------------------------------------------------*/
+
+$(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  });
+
+/*------------------------------------------------------------------
+[Speed Control]
+------------------------------------------------------------------*/
 
   $( "#slider" ).slider({
       value:0,
@@ -75,6 +109,10 @@ $(function(){
 
           
   });
+
+/*------------------------------------------------------------------
+[Refresh Event Handler]
+------------------------------------------------------------------*/
 
   function refreshTimer(newValue){
       var value = $("#slider").slider("value"),

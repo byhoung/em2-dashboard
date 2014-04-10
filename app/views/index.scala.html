@@ -1,7 +1,6 @@
 @(title: String)
 
 <!DOCTYPE HTML PUBLIC>
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -23,12 +22,18 @@
 </head>
 <body>
     <div class="page-container">
+        <div class="rightbar"> 
+            <text class="hour sidebar-right">Hour 0</text>
+            <div class="logo">
+                <img src="@routes.Assets.at("images/logo.svg")">
+            </div>
+        </div>
         <div class="row row-offcanvas row-offcanvas-left">
             <!-- Sidebar -->
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-                <div class="active" id="menu-toggle" data-toggle="offcanvas"><i class="fa fa-bars"></i></div>
+                <div id="menu-toggle" data-toggle="offcanvas"><span><i id="menu-glyph" class="fa fa-bars"></i></span></i></div>
                     <div class="shadow" id="sidebarWrap">
-                        <h2 class="sidebar-title"><div class="stats-value"><span id="geothermal">Geothermal</span> Dashboard</h2>
+                        <h2 class="sidebar-title"><div class="stats-value"><span id="geothermal-title">Geothermal</span> <span id="dashboard-title">Dashboard</span></h2>
                         <ul class="nav">
                           <li>
                             <i class="fa fa-cloud btn btn-circle sidebar-left" id="icon-cool"></i>
@@ -61,6 +66,12 @@
                           </li>
                             <hr>
                         </ul>
+
+                        <p>
+                          <label for="amount">Price range:</label>
+                          <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+                        </p>
+                        <div id="slider-range"></div>
                         <div id="speed-control">
                             <p>
                                 <label for="speed">Speed:</label>
@@ -70,15 +81,11 @@
                             <i class="fa fa-plus-circle speed-button" id="speed-plus"></i>
                             <i class="fa fa-minus-circle speed-button" id="speed-minus"></i>
                         </div>
-                        <div class="logo"></div>
 
                     </div>
             </div>
                 <!-- Main -->
                 <div class="main">
-                </div>
-                <div class="rightbar"> 
-                    <text class="hour sidebar-right">Hour 0</text>
                 </div>
         </div>
     </div>

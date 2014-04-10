@@ -10,28 +10,17 @@ window.onload = function initialize()
 
 	//setInterval(updatetempGauges, 6000);
 	//setInterval(updateFlows, 3000);
-	//setInterval(updatePaths, 5000);
-	//setInterval(updateGhx, 5000);
+	setInterval(updatePaths, 5000);
+	setInterval(updateGhx, 5000);
 };
 
 function initializeWindow(){
 
-	var sidebarWidth = $('#sidebarWrap').width();
-
-	if(window.devicePixelRatio > 1 || $(document).width() <= 1366){
-		wWidth = window.innerWidth * 1.2;
-		wHeight = window.innerHeight;
-	} else {
-		wWidth = window.innerWidth;
-		wHeight = window.innerHeight;
-	}
-	svgWidth = wWidth - sidebarWidth;
 	fill = d3.scale.category20(),
 	nodes = [],
 	links = [];
 
 	var mainContainer = d3.select('.main')
-		.style("width", wWidth - sidebarWidth + "px");
 
 /*------------------------------------------------------------------
 1. [Main SVG Body]
@@ -41,84 +30,12 @@ function initializeWindow(){
 			.attr("class", "body")
 			.attr("xmlns", "http://www.w3.org/2000/svg")
 			.attr("version", "1.1")
-			.attr("viewBox", "0 0 1400 885")
-			.attr("preserveAspectRatio", "xMidYMid meet");
+			.attr("viewBox", "0 0 1734 939")
+			.attr("preserveAspectRatio", "xMinYMin meet")
+			.style("text-rendering","geometricPrecision");
 
 	gBody = svgbody.append("g")
 			.attr("class", "gBody");
-
-/*------------------------------------------------------------------
-2. [Draw Logo SVG]
-------------------------------------------------------------------*/
-
-	var svglogo = d3.select(".logo").append("svg")
-				.attr("width", 90)
-				.attr("height", 70)
-				.append("g")
-					.attr("class", "glogo");
-	
-	svglogo.append("path")
-			.attr("fill-rule","evenodd") 
-			.attr("fill","#FFFFFF")
-			.attr("d","M6.7,55.9H31c12.6,0,19-5,19-14.4c0-6.7-3.4-10.7-10.3-12.1   c5-1.1,7.9-5,7.9-10.6c0-8.4-5.9-13.9-16.6-13.9H6.7V55.9L6.7,55.9z M23.9,17h2.4c3,0,4.6,1.3,4.6,3.6c0,2.3-1.6,3.6-4.6,3.6h-2.4   V17L23.9,17z M23.9,35.1h3.1c3.8,0,5.7,1.5,5.7,4.1c0,2.6-1.9,4.1-5.7,4.1h-3.1V35.1L23.9,35.1z")
-	svglogo.append("path")
-			.attr("fill-rule","evenodd") 
-			.attr("fill","#FFFFFF")
-			.attr("d","M62.7,55.7h18.2V39l9,16.8h20.8L96.8,35c6-0.7,9.9-5.8,9.9-13   c0-10.9-7.1-17.1-20.8-17.1H62.7V55.7L62.7,55.7z M80.8,18h2.9c3.6,0,5.5,1.9,5.5,5c0,3.1-1.9,4.9-5.5,4.9h-2.9V18L80.8,18z")
-	svglogo.append("path")
-			.attr("fill-rule","evenodd") 
-			.attr("fill","#FFFFFF")
-			.attr("d","M117.3,55.7h19.9l1.6-6.4h14l1.7,6.4h19.9l-18-51h-20.6   L117.3,55.7L117.3,55.7z M141.9,37.2l1.6-5.8c0.7-2.7,1.8-6.3,2.1-11.2h0.4c0.3,4.9,1.4,8.5,2.1,11.2l1.6,5.8H141.9L141.9,37.2z")
-	svglogo.append("path")
-			.attr("fill-rule","evenodd") 
-			.attr("fill","#FFFFFF")
-			.attr("d","M182.6,32.4c0,6.1,0.5,11,2.9,14.9c3.9,6.1,11.3,9.9,20.5,9.9   c9.2,0,16.6-3.7,20.5-9.9c2.4-3.9,3-8.7,3-14.9V4.7h-18.4v27.8c0,5.4-0.9,8.5-5.1,8.5c-4.3,0-5.1-3.1-5.1-8.5V4.7h-18.4V32.4   L182.6,32.4z")
-	svglogo.append("path")
-			.attr("fill-rule","evenodd") 
-			.attr("fill","#FFFFFF")
-			.attr("d","M245,55.6h17.6V37.3c0-2.1-0.1-4.8-0.6-8l15.6,26.4h18V4.8h-17.6   v18.5c0,2.2,0.1,4.9,0.6,8.1L262.9,4.8H245V55.6L245,55.6z")
-	svglogo.append("path")
-			.attr("fill-rule","evenodd") 
-			.attr("fill","#FFFFFF")
-			.attr("d","M6.1,95.9v50.5h5.4V95.9H6.1L6.1,95.9z M26.4,146.5h5.8V111   l31.3,37.5V95.8h-5v37.8L26.4,94.5V146.5L26.4,146.5z M72.6,101.1h12v45.3H90v-45.3h13.2v-5.2H72.6V101.1L72.6,101.1z M112.7,95.9   v50.6h25.4v-5.5H118v-19.4h20.2v-5.6h-19.7v-14.9h19.7v-5.3H112.7L112.7,95.9z M151.9,95.9v50.6h5.5V124h1.9l15.3,22.5h7.1   l-16.7-23c3.5,0,4.8-0.6,6.8-1.7c2-1.1,3.5-2.8,4.6-5c1-2.2,1.6-4,1.6-6.9c0-3.4-0.8-6.3-2.4-8.7c-1.5-2.4-3.5-4-6-4.7   c-1.6-0.4-4.7-0.7-9.3-0.7H151.9L151.9,95.9z M157.4,101.1h4.7c2.8,0,4.9,0.4,6.2,1c1.2,0.6,2.2,1.7,3,3.1c0.8,1.5,1.1,3.1,1.1,4.8   c0,1.8-0.3,2.9-1.1,4.4c-0.8,1.4-1.8,2.5-3.1,3.2c-1.3,0.7-3.4,1-6.2,1h-4.6V101.1L157.4,101.1z M296.7,102.8v-5.6   c-3.5-1.7-7.4-2.5-11.6-2.5c-7.3,0-13.3,2.5-18.2,7.4c-4.9,5-7.3,11.1-7.3,18.3c0,6.9,2,12.7,6,17.6c4.7,5.7,11.3,8.6,19.6,8.6   c4.2,0,8-0.8,11.5-2.4v-5.5c-3.3,2.1-7.1,3.2-11.3,3.2c-6,0-11.1-2.1-15-6.1c-4-4-6-9-6-15.1c0-4,0.9-7.5,2.7-10.8   c1.7-3.2,4.2-5.7,7.5-7.6c3.3-1.9,6.8-2.9,10.5-2.9c3.5,0,6.7,0.7,9.6,2.1C295.4,101.9,296,102.3,296.7,102.8L296.7,102.8z    M185.5,101.1h12v45.3h5.3v-45.3H216v-5.2h-30.5V101.1L185.5,101.1z M224.9,95.9v50.6h25.4v-5.5h-20.1v-19.4h20.2v-5.6h-19.7v-14.9   h19.7v-5.3H224.9L224.9,95.9z")
-	svglogo.append("polygon")
-			.attr("fill-rule","evenodd")
-			.attr("points","296,72.8 5.9,72.8 5.9,78 296,78 296,72.8  ")
-	svglogo.append("rect") 
-			.attr("x","4.454") 
-			.attr("y","162.398") 
-			.attr("width","292.541")
-			.attr("height","55.102")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M44.3,189.6v0.8c0,4.4-0.8,7.2-2.9,9.8c-2.8,3.5-7.3,5.6-11.9,5.6c-8.8,0-16-7.3-16-16.1   c0-9,7.3-16.2,16.5-16.2c5.1,0,9,2.1,13,6.8l-2.6,2.3c-3-4-6.3-5.9-10.4-5.9c-7.3,0-13,5.7-13,13c0,7,5.8,12.8,12.7,12.8   c3.7,0,7.7-2.2,9.6-5.3c0.8-1.3,1.1-2.5,1.3-4.4h-9.3v-3.2H44.3z")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M53.7,177.3v9.3H66v3.2H53.7V202h12.6v3.2H50.2v-31.2h16.2v3.2H53.7z")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M103.6,189.7c0,8.8-7.4,16.2-16.2,16.2c-9,0-16.3-7.2-16.3-16.1c0-8.9,7.4-16.2,16.3-16.2   C96.2,173.5,103.6,180.8,103.6,189.7z M74.6,189.7c0,7.1,5.7,12.8,12.7,12.8c7,0,12.7-5.8,12.7-12.8c0-7.2-5.7-12.9-12.7-12.9   C80.3,176.8,74.6,182.5,74.6,189.7z")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M115.8,205.3h-3.5v-28h-7.5v-3.2h18.6v3.2h-7.6V205.3z")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M147.5,186.8v-12.7h3.5v31.2h-3.5V190h-15.9v15.3h-3.5v-31.2h3.5v12.7H147.5z")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M163,177.3v9.3h12.3v3.2H163V202h12.6v3.2h-16.2v-31.2h16.2v3.2H163z")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M200.1,205.3h-4.3l-9.4-13.7h-0.9v13.7h-3.5v-31.2h5.1c3.6,0,5.7,0.5,7.5,1.7c2.1,1.5,3.5,4.1,3.5,6.9   c0,4.9-3,8.2-7.9,8.7L200.1,205.3z M187.8,188.5c4.5,0,6.9-2,6.9-5.9c0-3.5-2.4-5.4-7-5.4h-2.1v11.2H187.8z")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M209.5,172.3l12,26.4l12.3-26.4l4.8,33H235l-2.9-21.7l-10.6,23l-10.5-23l-3.1,21.7h-3.6L209.5,172.3z")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M249.6,196.4l-3.7,8.8h-3.8l14.4-32.7l14,32.7h-3.8l-3.7-8.8H249.6z M256.4,180.7l-5.3,12.5h10.5   L256.4,180.7z")
-	svglogo.append("path")
-			.attr("fill","#FFFFFF") 
-			.attr("d","M278.4,202h8.6v3.2h-12.1v-31.2h3.5V202z")
 
 /*------------------------------------------------------------------
 7. [Drop Shadow]
@@ -129,10 +46,26 @@ function initializeWindow(){
   var filter = defs.append("filter")
       .attr("id", "dropshadow")
 
+  var gradient = defs.append("linearGradient")
+  		.attr("id", "gradient")
+  		.attr("x1", "0%")
+  		.attr("y1", "0%")
+  		.attr("x2", "75%")
+  		.attr("y2", "100%")
+
+  gradient.append("stop")
+		.attr("offset", "0%")
+  		.attr("stop-color", "rgb(255,255,255)");
+
+  gradient.append("stop")
+  		.attr("offset", "100%")
+  		.attr("stop-color", "rgb(165,165,165)");
+
   filter.append("feGaussianBlur")
       .attr("in", "SourceAlpha")
-      .attr("stdDeviation", 1)
+      .attr("stdDeviation", 2)
       .attr("result", "blur");
+
   filter.append("feOffset")
       .attr("in", "blur")
       .attr("dx", 0)
@@ -378,7 +311,7 @@ function getRandomHeat(){
 }
 
 function defaultColor(){
-	return "#494949";
+	return "#424242";
 }
 
 function coldColor(){
