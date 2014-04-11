@@ -1,13 +1,16 @@
-# Trillium schema
+# SiteData schema
 
 # --- !Ups
 
-CREATE TABLE Trillium (
-    id bigint(20) NOT NULL AUTO_INCREMENT,
-    hour bigint(20) NOT NULL,
-    PRIMARY KEY (id)
+CREATE TABLE SiteData (
+    id BIGSERIAL PRIMARY KEY,
+    sitename TEXT NOT NULL,
+    date TIMESTAMP WITH TIME ZONE NOT NULL
 );
+
+CREATE INDEX SiteData_sitename ON SiteData(sitename);
+CREATE INDEX SiteData_date ON SiteData(date);
 
 # --- !Downs
 
-DROP TABLE Trillium;
+DROP TABLE SiteData;
