@@ -26,21 +26,23 @@ $(function(){
 
   $.getJSON('/assets/javascripts/data.json', function (info) {
       data = info
+      var size = Object.size(data)
+      rangeControl(size);
       $.each(data, function (key) {     
               iterateData(key);
-          });
+          });``
   }); 
 
-  function iterateData(key){
+  function iterateData(key, first){
       delay += interval;
       duration = interval / 5;
-      console.log(duration);
-      if(key == "1") {
+      console.log(delay)
+      if(key == first) {
         timerHandler[key] = setTimeout(function(){
             $(".hour").text("Hour " + key)
-            updateFlows(1, duration);
-            updatetempGauges(1, duration);
-          }, 1000)
+            updateFlows(key, duration);
+            updatetempGauges(key, duration);
+          }, 500)
       } else {timerHandler[key] = setTimeout(function(){
           $(".hour").text("Hour " + key)
           updateFlows(key, duration);
@@ -53,19 +55,20 @@ $(function(){
 [Range Control]
 ------------------------------------------------------------------*/
 
-$(function() {
+function rangeControl(size){
     $( "#slider-range" ).slider({
       range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
+      min: 1,
+      max: size,
+      values: [1, size ],
       slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $( "#amount" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+        refreshRange(ui.values[0], ui.values[1]);
       }
     });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-  });
+    $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+      " - " + $( "#slider-range" ).slider( "values", 1 ) );
+};  
 
 /*------------------------------------------------------------------
 [Speed Control]
@@ -116,9 +119,9 @@ $(function() {
 
   function refreshTimer(newValue){
       var value = $("#slider").slider("value"),
-          step = $("#slider").slider("option", "step"),
-          min = $("#slider").slider("option","min"),
-          max = $("#slider").slider("option","max"),
+          min = $("#slider-range").slider("option").values[0],
+          max = $("#slider-range").slider("option").values[1],
+          range = max - min,
           converter = 470;
           delay = 0;
 
@@ -138,10 +141,47 @@ $(function() {
 
           interval += defaultInterval;
 
-      for (var key in timerHandler){
-        clearTimeout(timerHandler[key])
-        iterateData(key)
-      }
+      refreshRange(min, max);
+  }
+
+  function refreshRange(min, max) {
+    var value = $("#slider").slider("value"),
+        range = max - min,
+        converter = 470;
+
+    delay = 0;
+
+    for (var key in timerHandler) {
+      clearTimeout(timerHandler[key])
+    }
+
+    for (rangeKey=min; rangeKey<=max; rangeKey++) {
+      iterateData(rangeKey, min)
+    }
+  }
+
+  function resetDraw() {
+    $(".hour").text("Hour " + 0)
+    for (var flowkey in flows) {
+      flows[flowkey].redraw(0,0,0)
+    }
+
+    for (var tempkey in tempgauges) {
+      tempgauges[tempkey].redraw(0,0,0)
+    }
+
   }
 
 })
+
+/*------------------------------------------------------------------
+[Count # of keys]
+------------------------------------------------------------------*/
+
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};

@@ -28,7 +28,7 @@
                 <img src="@routes.Assets.at("images/logo.svg")">
             </div>
         </div>
-        <div class="row row-offcanvas row-offcanvas-left">
+        <div class="row row-offcanvas row-offcanvas-left.active">
             <!-- Sidebar -->
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
                 <div id="menu-toggle" data-toggle="offcanvas"><span><i id="menu-glyph" class="fa fa-bars"></i></span></i></div>
@@ -67,19 +67,23 @@
                             <hr>
                         </ul>
 
-                        <p>
-                          <label for="amount">Price range:</label>
-                          <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
-                        </p>
-                        <div id="slider-range"></div>
-                        <div id="speed-control">
-                            <p>
-                                <label for="speed">Speed:</label>
-                                <input type="text" id="speed"></input>
-                            </p>
-                            <div id="slider"></div>
-                            <i class="fa fa-plus-circle speed-button" id="speed-plus"></i>
-                            <i class="fa fa-minus-circle speed-button" id="speed-minus"></i>
+                        <div id="control-wrap">
+                            <div class="control-item" id="range-control">
+                                <p>
+                                  <label for="amount">Range:</label>
+                                  <input type="text" id="amount">
+                                </p>
+                                <div id="slider-range"></div>
+                            </div>
+                            <div class="control-item" id="speed-control">
+                                <p>
+                                    <label for="speed">Speed:</label>
+                                    <input type="text" id="speed"></input>
+                                </p>
+                                <div id="slider"></div>
+<!--                                 <i class="fa fa-plus speed-button" id="speed-plus"></i>
+<i class="fa fa-minus speed-button" id="speed-minus"></i> -->
+                            </div>
                         </div>
 
                     </div>

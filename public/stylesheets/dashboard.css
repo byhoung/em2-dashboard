@@ -347,18 +347,27 @@ COOL # Light Blue: #009eff
 }
 
 /*------------------------------------------------------------------
-[jQuery UI Controls]
+[jQuery UI Speed/Time/Range Controls]
 ------------------------------------------------------------------*/
 
-#speed-control {
-	margin: 80px 5px;
+#control-wrap {
+	margin: 40px 5px;
 }
 
-#speed {
+.control-item {
+	margin: 25px 0px;
+}
+
+.control-item > p > input,
+.control-item > p > label {
 	border: 0; 
+	font-weight: 300;
 	background: rgba(0,0,0,0);
-	color: #FFFFFF; 
-	font-weight: bold;
+	color: #FF5F24;
+}
+
+.control-item > p > label {
+	color: #FFFFFF;
 }
 
 
@@ -374,6 +383,37 @@ COOL # Light Blue: #009eff
 
 #speed-minus {
 	float:left;
+}
+
+#speed-control > .ui-widget-content {
+	border: 0px;
+	background: #009eff;
+	background: linear-gradient(#009eff, #0069aa);
+}
+
+#range-control > .ui-widget-content {
+	border: 1px #000000;
+	background: #161616;
+	-moz-box-shadow:    inset 0 0 4px #000000;
+	-webkit-box-shadow: inset 0 0 4px #000000;
+	box-shadow:         inset 0 0 4px #000000;
+}
+
+.ui-slider-range {
+	border: 1px #000000;
+	background: #009eff;
+	background: linear-gradient(#009eff, #0069aa);
+}
+
+.ui-slider-handle{
+	width: 22px !important;
+	height: 22px !important;
+	top: -5px !important;
+	background: linear-gradient("rgb(255,255,255)", "rgb(165,165,165)"); !important;
+	border-radius: 36px !important;
+  	-moz-box-shadow:    0px 2px 6px 2px rgba(0,0,0,0.4);
+  	-webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.4);
+  	box-shadow:         0px 2px 6px 2px rgba(0,0,0,0.4);
 }
 
 /*------------------------------------------------------------------
@@ -482,7 +522,7 @@ COOL # Light Blue: #009eff
 	}
 
 	#sidebarWrap .nav{
-		margin-top:20px;
+		margin-top:40px;
 		width:100%;
 		clear: both;
 	}
@@ -492,9 +532,14 @@ COOL # Light Blue: #009eff
 	}
 	
 	.sidebar-title {
-		font-size: 28px;
+		font-size: 20px;
 		text-transform:uppercase;
 		text-align:center;
+		line-height:0.5;
+	}
+
+	#dashboard-title {
+		font-size: 18px;
 	}
 
 	#sidebar {
@@ -503,6 +548,15 @@ COOL # Light Blue: #009eff
 
 	#sidebarWrap {
 		width:320px;
+	}
+
+	.ui-slider-handle{
+		width: 16px !important;
+		height: 16px !important;
+		top: -2px !important;
+	  	-moz-box-shadow:    0px 0px 3px 1px #000000;
+	  	-webkit-box-shadow: 0px 0px 3px 1px #000000;
+	  	box-shadow:         0px 0px 3px 1px #000000;
 	}
 
 	.row-offcanvas-left {
@@ -534,8 +588,8 @@ COOL # Light Blue: #009eff
 		padding: 3px 0px;
 	}
 
-	#speed-control {
-		margin: 40px 5px;
+	#control-wrap {
+		margin: 20px 5px;
 	}
 }
 
