@@ -6,7 +6,7 @@ libraryDependencies ++= Seq(
   jdbc,
   anorm,
   cache,
-  "org.postgresql" % "postgresql" % "9.3-1101-jdbc41"
+  "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
 )     
 
 play.Project.playScalaSettings
