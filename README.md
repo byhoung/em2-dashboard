@@ -8,7 +8,7 @@
 ### Database Configuration
 Add the following environment variables:
 
-- `DATABASE_URL=jdbc:h2:mem:play`
+- `DATABASE_URL=jdbc:h2:mem:play;MODE=PostgreSQL`
 - `DATABASE_DRIVER=org.h2.Driver`
 
 ### Helpful Links
