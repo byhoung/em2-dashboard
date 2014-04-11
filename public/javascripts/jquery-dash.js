@@ -30,7 +30,7 @@ $(function(){
       rangeControl(size);
       $.each(data, function (key) {     
               iterateData(key);
-          });``
+          });
   }); 
 
   function iterateData(key, first){
