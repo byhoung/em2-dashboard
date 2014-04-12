@@ -75,18 +75,24 @@ object Application extends Controller {
     implicit val format = Json.format[PostSiteData]
   }
 
-  def postSiteData(site: String) = Action(BodyParsers.parse.json) { request =>
+  def authenticated[A](block: DataProvider => Result)(implicit request: Request[A]) = {
     request.headers.get("token").flatMap { token =>
       DataProvider.dataProviderForToken(token).map { provider =>
-        request.body.validate[Seq[PostSiteData]].fold(
-          errors => {
-            BadRequest(JsError.toFlatJson(errors))
-          },
-          siteData => {
-            Ok
-          }
-        )
+        block(provider)
       }
     }.getOrElse(Forbidden)
+  }
+
+  def postSiteData(site: String) = Action(BodyParsers.parse.json) { implicit request =>
+    authenticated { provider =>
+      request.body.validate[Seq[PostSiteData]].fold(
+        errors => {
+          BadRequest(JsError.toFlatJson(errors))
+        },
+        siteData => {
+          Ok
+        }
+      )
+    }
   }
 }
