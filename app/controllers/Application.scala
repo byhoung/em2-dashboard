@@ -83,16 +83,22 @@ object Application extends Controller {
     }.getOrElse(Forbidden)
   }
 
-  def postSiteData(site: String) = Action(BodyParsers.parse.json) { implicit request =>
-    authenticated { provider =>
-      request.body.validate[Seq[PostSiteData]].fold(
-        errors => {
-          BadRequest(JsError.toFlatJson(errors))
-        },
-        siteData => {
-          Ok
-        }
-      )
+  def authenticatedJson[A, B](block: A => Result)(implicit rds : play.api.libs.json.Reads[A]) = {
+    Action(BodyParsers.parse.json) { implicit request =>
+      authenticated { provider =>
+        request.body.validate[A].fold(
+          errors => {
+            BadRequest(JsError.toFlatJson(errors))
+          },
+          json => {
+            block(json)
+          }
+        )
+      }
     }
+  }
+
+  def postSiteData(site: String) = authenticatedJson {
+    data: Seq[PostSiteData] => Ok
   }
 }
