@@ -1,7 +1,8 @@
 package controllers
 
 import play.api.mvc._
-import play.api.libs.json.Json
+import play.api.libs.json._
+import models.DataProvider
 
 object Application extends Controller {
 
@@ -68,4 +69,24 @@ object Application extends Controller {
     Ok(Json.parse(dumbJson))
   }
 
+  case class PostSiteData(timestamp: Option[Long])
+
+  object PostSiteData {
+    implicit val format = Json.format[PostSiteData]
+  }
+
+  def postSiteData(site: String) = Action(BodyParsers.parse.json) { request =>
+    request.headers.get("token").flatMap { token =>
+      DataProvider.dataProviderForToken(token).map { provider =>
+        request.body.validate[Seq[PostSiteData]].fold(
+          errors => {
+            BadRequest(JsError.toFlatJson(errors))
+          },
+          siteData => {
+            Ok
+          }
+        )
+      }
+    }.getOrElse(Forbidden)
+  }
 }

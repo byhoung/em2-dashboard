@@ -6,5 +6,7 @@
 GET     /                           controllers.Application.index
 GET     /:site/data                 controllers.Application.siteData(site)
 
+POST    /:site/data                 controllers.Application.postSiteData(site)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
