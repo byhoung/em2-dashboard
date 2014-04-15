@@ -279,7 +279,7 @@ function updateFlows(index, duration)
 	{
 		if (flows.hasOwnProperty(flowkey)) 
 		{
-			var value = Math.round(data[index].modules[flowkey])
+			var value = Math.round(data[index].currentValues[flowkey])
 			var peak = 0//getRandomValue(flows[flowkey])
 			flows[flowkey].redraw(value, peak, duration);
 		}
@@ -291,7 +291,7 @@ function updatetempGauges(index, duration)
 	for (var tempkey in tempgauges)
 	{
 		if (tempgauges.hasOwnProperty(tempkey)) {
-		var value = Math.round(data[index].modules[tempkey])
+		var value = Math.round(data[index].currentValues[tempkey])
 		var peak = 0//getRandomValue(tempgauges[tempkey])
 		tempgauges[tempkey].redraw(value, peak, duration);
 		}

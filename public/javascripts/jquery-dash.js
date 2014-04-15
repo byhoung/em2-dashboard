@@ -1,6 +1,8 @@
 $(function(){
 	
-	// Menu settings
+/*------------------------------------------------------------------
+[Initialize]
+------------------------------------------------------------------*/
   $('[data-toggle=offcanvas]').click(function() {
 		$('.row-offcanvas-left').toggleClass('active');
     $('#menu-toggle').toggleClass('active');
@@ -13,8 +15,8 @@ $(function(){
     }
 
 	});
-  // var sidebarWidth = -Math.abs($('#sidebarWrap').width())
-  // $('.row-offcanvas-left').css("-webkit-transform", "translate3d("+sidebarWidth+"px,0,0)");
+
+
   delay = 0;
   defaultInterval = 5000;
   var interval = defaultInterval;
@@ -26,7 +28,7 @@ $(function(){
 
   $.getJSON('/assets/javascripts/data.json', function (info) {
       data = info
-      var size = Object.size(data)
+      var size = Number(data.length);
       rangeControl(size);
       $.each(data, function (key) {     
               iterateData(key);
