@@ -22,6 +22,7 @@ $(function(){
   var interval = defaultInterval;
   timerHandler = {};
 
+
 /*------------------------------------------------------------------
 [Read & Iterate JSON]
 ------------------------------------------------------------------*/
@@ -41,16 +42,16 @@ $(function(){
       console.log(delay)
       if(key == first) {
         timerHandler[key] = setTimeout(function(){
-            $(".hour").text("Hour " + key)
+            $(".hour").text(data[key].date)
             updateFlows(key, duration);
             updatetempGauges(key, duration);
           }, 500)
       } else {timerHandler[key] = setTimeout(function(){
-          $(".hour").text("Hour " + key)
+          $(".hour").text(data[key].date)
           updateFlows(key, duration);
           updatetempGauges(key, duration);
         }, delay)
-      }
+      } 
   };  
 
 /*------------------------------------------------------------------
