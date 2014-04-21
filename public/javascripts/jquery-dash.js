@@ -39,15 +39,14 @@ $(function(){
   function iterateData(key, first){
       delay += interval;
       duration = interval / 5;
-      console.log(delay)
       if(key == first) {
         timerHandler[key] = setTimeout(function(){
-            $(".hour").text(data[key].date)
+            $(".hour").text("Hour " + key)//data[key].date
             updateFlows(key, duration);
             updatetempGauges(key, duration);
           }, 500)
       } else {timerHandler[key] = setTimeout(function(){
-          $(".hour").text(data[key].date)
+          $(".hour").text("Hour " + key)//data[key].date
           updateFlows(key, duration);
           updatetempGauges(key, duration);
         }, delay)
@@ -144,7 +143,7 @@ function rangeControl(size){
 
           interval += defaultInterval;
 
-      refreshRange(min, max);
+      refreshRange(currentIndex, max);
   }
 
   function refreshRange(min, max) {
@@ -153,6 +152,7 @@ function rangeControl(size){
         converter = 470;
 
     delay = 0;
+    console.log(currentIndex)
 
     for (var key in timerHandler) {
       clearTimeout(timerHandler[key])

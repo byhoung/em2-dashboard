@@ -8,10 +8,10 @@ window.onload = function initialize()
 	// updatePaths()
 	// updateGhx()
 
-	//setInterval(updatetempGauges, 6000);
-	//setInterval(updateFlows, 3000);
-	//setInterval(updatePaths, 5000);
-	//setInterval(updateGhx, 5000);
+	// setInterval(updatetempGauges, 6000);
+	// setInterval(updateFlows, 3000);
+	setInterval(updatePaths, 5000);
+	setInterval(updateGhx, 5000);
 };
 
 function initializeWindow(){
@@ -85,32 +85,15 @@ function initializeWindow(){
 3. [Declaration and Initialization with JSON]
 ------------------------------------------------------------------*/
 
-var paths = [];
-var ghx = [];
+var paths = [],
+	ghx = [],
+	rects = [];
+
 flows = [];
 tempgauges = [];
-var rects = [];
+currentIndex = 0;
+
 var stats = d3.selectAll('.value')[0];
-var jsonTemp = 
-{
-	"f1": {"temp": 1253.12, "peak": 1250},
-	"f1A": {"temp": 485.12, "peak": 1250},
-	"f1B": {"temp": 652.12, "peak": 1250},
-	"f2": {"temp": 1542.54, "peak": 200},
-	"f3": {"temp": 1742.65, "peak": 1000},
-	"f4": {"temp": 305.12, "peak": 1250},
-	"f5": {"temp": 965.12, "peak": 1250},
-	"t1": {"temp": 80.45, "peak": 90},
-	"t2": {"temp": 70.23, "peak": 80},
-	"t3": {"temp": 12.23, "peak": 80},
-	"t4": {"temp": 85.23, "peak": 80},
-	"t4A": {"temp": 78.23, "peak": 80},
-	"t5": {"temp": 4.23, "peak": 80},
-	"t6": {"temp": 46.23, "peak": 80},
-	"t7": {"temp": 72.23, "peak": 80},
-	"t8": {"temp": 13.23, "peak": 80},
-	"t9": {"temp": 18.62, "peak": 60}
-};
 
 /*------------------------------------------------------------------
 4. [Define Creation Functions]
@@ -193,7 +176,7 @@ function createPaths()
 	/*Create all curved pipes*/
 	createPath("pipe2","pipe","m 24.021198,339.37412 0.21875,46.125 c 0.09444,21.59979 17.5875,39.1875 39.1875,39.1875 l 40.218752,0 c -1.9533,-6.93485 -1.90675,-12.78899 0.125,-19.59375 l -40.437502,0 c -10.8,0 -19.59375,-8.79375 -19.59375,-19.59375 l -0.21875,-46.125 -19.5,0 z M 173.1462,405.09287 c 2.03307,6.8073 2.07958,12.65629 0.125,19.59375 l 59.0625,0 0,-19.59375 -59.1875,0 z")
 	createPath("pipe3","pipe","m 63.30955,166.36826 h 20 l 0,0 h 149 v -19.5 h -149 l 0,0 h -20 c -21.6,0 -39.1,17.6 -39.1,39.1 v 54.9 h 19.6 v -54.9 c 0,-10.8 8.7,-19.6 19.5,-19.6 z")
-	createPath("pipe5","pipe","m 271.42745,64.811623 c -21.6,0 -39.1875,17.5875 -39.1875,39.187497 l 0,42.8125 19.59375,0 0,-42.8125 c 0,-10.799997 8.79375,-19.593747 19.59375,-19.593747 l 122.78125,0 c -1.98352,-6.77799 -1.9983,-12.63481 0,-19.59375 l -122.78125,0 z m 192.40625,0 c 0.99263,3.4677 1.5,6.7054 1.5,9.8125 0,3.15044 -0.50758,6.36324 -1.5,9.78125 l 149.1875,0 0,136.906247 19.625,0 0,-136.906247 192.375,0 0,-19.59375 -238.6875,0 -64.5,0 -58,0 z")
+	createPath("pipe5","pipe","M 271.4375 64.8125 C 249.8375 64.8125 232.25 82.400003 232.25 104 L 232.25 146.8125 L 251.84375 146.8125 L 251.84375 104 C 251.84375 93.200003 260.6375 84.40625 271.4375 84.40625 L 389.5 84.40625 L 394.21875 84.40625 L 463.84375 84.40625 L 468.21875 84.40625 L 613.03125 84.40625 L 613.03125 221.3125 L 632.65625 221.3125 L 632.65625 84.40625 L 825.03125 84.40625 L 825.03125 64.8125 L 586.34375 64.8125 L 521.84375 64.8125 L 468.21875 64.8125 L 463.84375 64.8125 L 394.21875 64.8125 L 389.5 64.8125 L 271.4375 64.8125 z ")
 	createPath("pipe7","pipe","m 612.99702,240.86825 0,25.875 c 0,21.6 17.61875,39.21875 39.21875,39.21875 l 26,0 0,-19.59375 -26,0 c -10.8,0 -19.59375,-8.825 -19.59375,-19.625 l 0,-25.875 -19.625,0 z")
 	createPath("pipe9","pipe","M 1196.6095,64.868258 H 923.70955 v 19.6 h 272.89995 c 10.8,0 19.6,8.8 19.6,19.600002 v 182.3 h 19.6 v -182.3 c 0,-21.600002 -17.6,-39.200002 -39.2,-39.200002 z")
 	createPath("pipe10","pipe","m 1132.7399,305.90537 0,48.46875 c 6.7502,-1.9227 12.5986,-1.87231 19.5937,0.1875 l 0,-48.65625 -19.5937,0 z m 19.5937,118.0625 c -3.5907,1.05511 -6.8915,1.59375 -10.0937,1.59375 -3.0628,0 -6.1897,-0.4383 -9.5,-1.375 l 0,37.3125 c 0,10.8 -8.7938,19.59375 -19.5938,19.59375 l -189.4999,-0.28125 0,19.59375 189.4999,0.28125 c 21.6,0 39.1875,-17.5875 39.1875,-39.1875 l 0,-37.53125 z")
@@ -214,7 +197,6 @@ function createPaths()
 	createRect("rect19","mod","24.119961","247.06519","54.374401","86.169601")
 	/*Create all valves*/
 	createPath("valve1","valve","m 105.53912,399.52349 -1.46875,4.53125 c -2.492,7.675 -2.54,14.00375 -0.125,21.84375 l 1.40625,4.59375 33.09375,0 33.09374,0 1.40625,-4.59375 c 2.415,-7.84 2.367,-14.16875 -0.125,-21.84375 l -1.46875,-4.53125 -32.90624,0 -32.90625,0 z")
-	createPath("valve2","valve","m 465.29955,74.682258 c 0,3.567 -0.618,7.211 -1.895,11.146 l -1.462,4.523 h -65.902 l -1.461,-4.523 c -2.492,-7.675 -2.559,-14.005 -0.145,-21.845 l 1.425,-4.601 h 66.266 l 1.423,4.601 c 1.177,3.824 1.751,7.319 1.751,10.699 z")
 	createPath("valve3","valve","m 1142.2086,425.64243 c -3.568,0 -7.213,-0.618 -11.147,-1.895 l -4.522,-1.462 v -65.902 l 4.522,-1.462 c 7.676,-2.491 14.005,-2.558 21.846,-0.144 l 4.599,1.425 v 66.266 l -4.599,1.423 c -3.824,1.177 -7.319,1.751 -10.699,1.751 z")
 	/*Create all flows*/
 	createFlow("f1","F1",0,2500,70,0,243,675);
@@ -279,11 +261,12 @@ function updateFlows(index, duration)
 	{
 		if (flows.hasOwnProperty(flowkey)) 
 		{
-			var value = Math.round(data[index].currentValues[flowkey])
+			var value = getRandomValue(flows[flowkey])//Math.round(data[index].currentValues[flowkey])
 			var peak = 0//getRandomValue(flows[flowkey])
 			flows[flowkey].redraw(value, peak, duration);
 		}
 	}
+	currentIndex = index;
 }
 
 function updatetempGauges(index, duration)
@@ -291,7 +274,7 @@ function updatetempGauges(index, duration)
 	for (var tempkey in tempgauges)
 	{
 		if (tempgauges.hasOwnProperty(tempkey)) {
-		var value = Math.round(data[index].currentValues[tempkey])
+		var value = getRandomValue(tempgauges[tempkey])//Math.round(data[index].currentValues[tempkey])
 		var peak = 0//getRandomValue(tempgauges[tempkey])
 		tempgauges[tempkey].redraw(value, peak, duration);
 		}
