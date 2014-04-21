@@ -11,12 +11,9 @@
 	}
 
 	#sidebarWrap .nav{
-		margin-top:40px;
-	}
-
-	#sidebarWrap .nav>li {
-		padding: 6px 10px;
-		padding-right:20px;
+		margin-top:30px;
+		width:100%;
+		clear: both;
 	}
 
 	#sidebar .nav>li>i {
@@ -26,13 +23,14 @@
 	.value {
 		font-size: 25px;
 		font-weight: 400;
-		width:30%;
 	}
 
 	.units {
 		font-size: 10px;
-		min-width:0px;
-		font-weight: 300;
+	}
+
+	.sidebar-right {
+		width:60%;
 	}
 
 	.title-glyph {
