@@ -3,10 +3,15 @@ package controllers
 import play.api.mvc._
 import play.api.libs.json._
 import models.DataProvider
+import java.net.URL
 
 object Application extends Controller {
 
   def index = Action {
+    Redirect(routes.Application.indexSite("trillium"))
+  }
+
+  def indexSite(site: String) = Action {
     Ok(views.html.index("Trillium"))
   }
 
@@ -20,42 +25,9 @@ object Application extends Controller {
   }
 
   def siteData(site: String) = Action {
-    Ok(Json.toJson(Seq(SimpleJson(
-      1,
-      "Jan. 1, 2014",
-      Map(
-        "t1"  -> 50.74,
-        "t2"  -> 50.74,
-        "t3"  -> 50.74,
-        "t4"  -> 50.74,
-        "t4a" -> 50.74,
-        "t5"  -> 50.74,
-        "t6"  -> 50.74,
-        "t7"  -> 50.74,
-        "t8"  -> 50.74,
-        "t9"  -> 50.74,
-        "f1"  -> 50.74,
-        "f2"  -> 50.74,
-        "f3"  -> 50.74,
-        "f4"  -> 50.74
-      ),
-      Map(
-        "t1"  -> 50.74,
-        "t2"  -> 50.74,
-        "t3"  -> 50.74,
-        "t4"  -> 50.74,
-        "t4a" -> 50.74,
-        "t5"  -> 50.74,
-        "t6"  -> 50.74,
-        "t7"  -> 50.74,
-        "t8"  -> 50.74,
-        "t9"  -> 50.74,
-        "f1"  -> 50.74,
-        "f2"  -> 50.74,
-        "f3"  -> 50.74,
-        "f4"  -> 50.74
-      )
-    ))))
+    val url: URL = getClass.getClassLoader.getResource("resources/data.json")
+    val json: String = scala.io.Source.fromFile(url.toURI).getLines().mkString("")
+    Ok(Json.parse(json))
   }
 
   case class PostSiteData(timestamp: Option[Long])
