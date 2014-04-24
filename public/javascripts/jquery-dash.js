@@ -27,7 +27,7 @@ $(function(){
 [Read & Iterate JSON]
 ------------------------------------------------------------------*/
 
-  $.getJSON('/assets/javascripts/data.json', function (info) {
+  $.getJSON(document.URL + '/data', function (info) {
       data = info
       var size = Number(data.length);
       rangeControl(size);

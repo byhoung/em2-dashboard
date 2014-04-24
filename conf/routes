@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index
+GET     /:site                      controllers.Application.indexSite(site)
 GET     /:site/data                 controllers.Application.siteData(site)
 
 POST    /:site/data                 controllers.Application.postSiteData(site)
