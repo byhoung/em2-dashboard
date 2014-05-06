@@ -14,6 +14,13 @@ case class SiteData(id: Option[Long], siteName: String, date: Long, json: String
 object SiteData {
   val mapper = long("id") ~ str("sitename") ~ long("date") ~ str("data") map { case id~siteName~date~data => SiteData(Some(id), siteName, date, data) }
 
+  def all: List[SiteData] = {
+    DB.withConnection { implicit connection =>
+      SQL("SELECT * FROM SiteData")
+        .as(SiteData.mapper *)
+    }
+  }
+
   def get(id: Long): Option[SiteData] = {
     DB.withConnection { implicit connection =>
       SQL("SELECT * FROM SiteData WHERE id = {id}")

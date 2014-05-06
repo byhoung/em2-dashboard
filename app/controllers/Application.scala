@@ -2,7 +2,7 @@ package controllers
 
 import play.api.mvc._
 import play.api.libs.json._
-import models.DataProvider
+import models.{SiteData, DataProvider}
 import java.net.URL
 
 object Application extends Controller {
@@ -31,7 +31,7 @@ object Application extends Controller {
     }
   }
 
-  case class PostSiteData(timestamp: Option[Long])
+  case class PostSiteData(timestamp: Long, payload: String)
 
   object PostSiteData {
     implicit val format = Json.format[PostSiteData]
@@ -62,7 +62,12 @@ object Application extends Controller {
 
   def postSiteData(site: String) = authenticatedJson { data: Seq[PostSiteData] =>
     site match {
-      case "trillium" => Ok
+      case "trillium" => {
+        data.foreach { d =>
+          SiteData.insertOrUpdate(SiteData(None, site, d.timestamp, d.payload))
+        }
+        Accepted
+      }
     }
   }
 }
