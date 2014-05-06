@@ -25,9 +25,10 @@ object Application extends Controller {
   }
 
   def siteData(site: String) = Action {
-    val url: URL = getClass.getClassLoader.getResource("resources/data.json")
-    val json: String = scala.io.Source.fromFile(url.toURI).getLines().mkString("")
-    Ok(Json.parse(json))
+    site match {
+      case "trillium" => Ok(TrilliumView.json)
+      case _          => NotFound
+    }
   }
 
   case class PostSiteData(timestamp: Option[Long])
