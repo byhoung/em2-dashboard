@@ -17,7 +17,7 @@ class ApplicationTest extends Specification {
   "The EM2 Dashboard" should {
     "Allow post to /trillium/data" in new WithServer {
       SiteData.all.foreach { data =>
-        SiteData.delete(data.id.get)
+        SiteData.delete(data)
       }
 
       SiteData.all must beEmpty

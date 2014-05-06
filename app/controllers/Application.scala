@@ -64,7 +64,7 @@ object Application extends Controller {
     site match {
       case "trillium" => {
         data.foreach { d =>
-          SiteData.insertOrUpdate(SiteData(None, site, d.timestamp, d.payload))
+          SiteData.insertOrUpdate(SiteData(d.timestamp, site, d.payload))
         }
         Accepted
       }

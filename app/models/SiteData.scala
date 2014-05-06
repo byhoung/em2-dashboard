@@ -4,15 +4,12 @@ import play.api.db.DB
 import anorm._
 import anorm.SqlParser._
 import anorm.~
-import scala.Some
 import play.api.Play.current
 
-case class SiteData(id: Option[Long], siteName: String, date: Long, json: String) {
-
-}
+case class SiteData(timestamp: Long, siteName: String, payload: String)
 
 object SiteData {
-  val mapper = long("id") ~ str("sitename") ~ long("date") ~ str("data") map { case id~siteName~date~data => SiteData(Some(id), siteName, date, data) }
+  val mapper = long("timestamp") ~ str("sitename") ~ str("payload") map { case timestamp~siteName~payload => SiteData(timestamp, siteName, payload) }
 
   def all: List[SiteData] = {
     DB.withConnection { implicit connection =>
@@ -21,32 +18,27 @@ object SiteData {
     }
   }
 
-  def get(id: Long): Option[SiteData] = {
+  def get(timestamp: Long): Option[SiteData] = {
     DB.withConnection { implicit connection =>
-      SQL("SELECT * FROM SiteData WHERE id = {id}")
-        .on('id -> id).as(SiteData.mapper *).headOption
+      SQL("SELECT * FROM SiteData WHERE timestamp = {timestamp}")
+        .on('timestamp -> timestamp).as(SiteData.mapper *).headOption
     }
   }
 
-  def insertOrUpdate(siteData: SiteData): SiteData = {
+  def insertOrUpdate(siteData: SiteData) {
     DB.withConnection { implicit connection =>
-      siteData.id match {
-        case None =>
-          val id = SQL("INSERT INTO SiteData (sitename, date, data) VALUES ({sitename}, {date}, {data})")
-            .on('sitename -> siteData.siteName, 'date -> siteData.date, 'data -> siteData.json).executeInsert[Option[Long]]()
-          siteData.copy(id = id)
-        case Some(id) =>
-          SQL("UPDATE SiteData SET sitename = {sitename}, date = {date}, data = {data} WHERE id = {id}")
-            .on('sitename -> siteData.siteName, 'date -> siteData.date, 'data -> siteData.json, 'id -> siteData.id).executeUpdate()
-          siteData
+      if (SQL("UPDATE SiteData SET payload = {payload} WHERE timestamp = {timestamp} AND sitename = {sitename}")
+        .on('sitename -> siteData.siteName, 'timestamp -> siteData.timestamp, 'payload -> siteData.payload).executeUpdate() == 0) {
+        SQL("INSERT INTO SiteData (timestamp, sitename, payload) VALUES ({timestamp}, {sitename}, {payload})")
+          .on('sitename -> siteData.siteName, 'timestamp -> siteData.timestamp, 'payload -> siteData.payload).executeInsert()
       }
     }
   }
 
-  def delete(id: Long) {
+  def delete(siteData: SiteData) {
     DB.withConnection { implicit connection =>
-      SQL("DELETE FROM SiteData WHERE id = {id}")
-        .on('id -> id).executeUpdate()
+      SQL("DELETE FROM SiteData WHERE timestamp = {timestamp} AND sitename = {sitename}")
+        .on('timestamp -> siteData.timestamp, 'sitename -> siteData.siteName).executeUpdate()
     }
   }
 }

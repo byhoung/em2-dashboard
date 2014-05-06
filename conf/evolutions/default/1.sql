@@ -3,14 +3,11 @@
 # --- !Ups
 
 CREATE TABLE SiteData (
-    id       BIGSERIAL PRIMARY KEY,
-    sitename TEXT      NOT NULL,
-    date     BIGINT    NOT NULL,
-    data     TEXT      NOT NULL
+    timestamp BIGINT    NOT NULL,
+    sitename  TEXT      NOT NULL,
+    payload   TEXT      NOT NULL,
+    PRIMARY KEY (timestamp, sitename)
 );
-
-CREATE INDEX SiteData_sitename ON SiteData(sitename);
-CREATE INDEX SiteData_date ON SiteData(date);
 
 # --- !Downs
 
