@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.libs.json._
-import play.api.mvc.Controller
 
 case class TrilliumJson(hour: Int,
                         date: String,
@@ -13,5 +12,5 @@ object TrilliumJson {
 }
 
 object TrilliumView {
-  def json: JsValue = Json.parse("[]")
+  def json: JsValue = Json.toJson(Seq(TrilliumJson(1, "2013-04-17", Map(), Map())))
 }
