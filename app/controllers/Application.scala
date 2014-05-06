@@ -60,7 +60,9 @@ object Application extends Controller {
     }
   }
 
-  def postSiteData(site: String) = authenticatedJson {
-    data: Seq[PostSiteData] => Ok
+  def postSiteData(site: String) = authenticatedJson { data: Seq[PostSiteData] =>
+    site match {
+      case "trillium" => Ok
+    }
   }
 }
