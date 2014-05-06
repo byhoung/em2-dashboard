@@ -61,13 +61,7 @@ object Application extends Controller {
   }
 
   def postSiteData(site: String) = authenticatedJson { data: Seq[PostSiteData] =>
-    site match {
-      case "trillium" => {
-        data.foreach { d =>
-          SiteData.insertOrUpdate(SiteData(d.timestamp, site, d.payload))
-        }
-        Accepted
-      }
-    }
+    SiteData.insertOrUpdate(data.map { d => SiteData(d.timestamp, site, d.payload) } )
+    Accepted
   }
 }

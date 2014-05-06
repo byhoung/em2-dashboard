@@ -26,11 +26,17 @@ object SiteData {
   }
 
   def insertOrUpdate(siteData: SiteData) {
-    DB.withConnection { implicit connection =>
-      if (SQL("UPDATE SiteData SET payload = {payload} WHERE timestamp = {timestamp} AND sitename = {sitename}")
-        .on('sitename -> siteData.siteName, 'timestamp -> siteData.timestamp, 'payload -> siteData.payload).executeUpdate() == 0) {
-        SQL("INSERT INTO SiteData (timestamp, sitename, payload) VALUES ({timestamp}, {sitename}, {payload})")
-          .on('sitename -> siteData.siteName, 'timestamp -> siteData.timestamp, 'payload -> siteData.payload).executeInsert()
+    this.insertOrUpdate(Seq(siteData))
+  }
+
+  def insertOrUpdate(siteDatas: Seq[SiteData]) {
+    DB.withTransaction { implicit connection =>
+      siteDatas.foreach { siteData =>
+        if (SQL("UPDATE SiteData SET payload = {payload} WHERE timestamp = {timestamp} AND sitename = {sitename}")
+          .on('sitename -> siteData.siteName, 'timestamp -> siteData.timestamp, 'payload -> siteData.payload).executeUpdate() == 0) {
+          SQL("INSERT INTO SiteData (timestamp, sitename, payload) VALUES ({timestamp}, {sitename}, {payload})")
+            .on('sitename -> siteData.siteName, 'timestamp -> siteData.timestamp, 'payload -> siteData.payload).executeInsert()
+        }  
       }
     }
   }
