@@ -21,23 +21,9 @@ object Application extends Controller {
     implicit val format = Json.format[PostSiteData]
   }
 
-  case class SimpleJson(hour: Int,
-                        date: String,
-                        currentValues: Map[String, Double],
-                        maxValues:     Map[String, Double])
-
-  object SimpleJson {
-    implicit val format = Json.format[SimpleJson]
-  }
-
   def siteData(site: String) = Action {
-    site match {
-      case "trillium" => Ok(TrilliumView.json)
-      case "rothsay"  => Ok(Json.toJson(SiteData.all.map(s => PostSiteData(s.timestamp, s.payload))))
-      case _          => NotFound
-    }
+    NotFound
   }
-
 
   def authenticated[A](block: DataProvider => Result)(implicit request: Request[A]) = {
     request.headers.get("token").flatMap { token =>
@@ -62,8 +48,8 @@ object Application extends Controller {
     }
   }
 
-  def postSiteData(site: String) = authenticatedJson { data: Seq[PostSiteData] =>
-    SiteData.insertOrUpdate(data.map { d => SiteData(d.timestamp, site, d.payload) } )
+  def postSiteData(site: String) = authenticatedJson { data: Seq[SiteIncomingJson] =>
+//    SiteData.insertOrUpdate(data.map { d => SiteData(d.timestamp, site, Json.to) } )
     Accepted
   }
 }
