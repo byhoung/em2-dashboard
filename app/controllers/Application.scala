@@ -15,6 +15,12 @@ object Application extends Controller {
     Ok(views.html.index("Trillium"))
   }
 
+  case class PostSiteData(timestamp: Long, payload: String)
+
+  object PostSiteData {
+    implicit val format = Json.format[PostSiteData]
+  }
+
   case class SimpleJson(hour: Int,
                         date: String,
                         currentValues: Map[String, Double],
@@ -27,15 +33,11 @@ object Application extends Controller {
   def siteData(site: String) = Action {
     site match {
       case "trillium" => Ok(TrilliumView.json)
+      case "rothsay"  => Ok(Json.toJson(SiteData.all.map(s => PostSiteData(s.timestamp, s.payload))))
       case _          => NotFound
     }
   }
 
-  case class PostSiteData(timestamp: Long, payload: String)
-
-  object PostSiteData {
-    implicit val format = Json.format[PostSiteData]
-  }
 
   def authenticated[A](block: DataProvider => Result)(implicit request: Request[A]) = {
     request.headers.get("token").flatMap { token =>
