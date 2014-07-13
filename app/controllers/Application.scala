@@ -1,9 +1,8 @@
 package controllers
 
-import play.api.mvc._
+import models.{DataProvider, SiteData, SiteGHXData, SiteNodeData}
 import play.api.libs.json._
-import models.{SiteData, DataProvider}
-import java.net.URL
+import play.api.mvc._
 
 object Application extends Controller {
 
@@ -49,7 +48,10 @@ object Application extends Controller {
   }
 
   def postSiteData(site: String) = authenticatedJson { data: Seq[SiteIncomingJson] =>
-//    SiteData.insertOrUpdate(data.map { d => SiteData(d.timestamp, site, Json.to) } )
+    SiteData.insertOrUpdate(data.map { d =>
+      val (ghxs, nodes) = d.nodes.partition(_.name.equalsIgnoreCase("ghx"))
+      SiteData(d.timestamp, site, ghxs.map(g => SiteGHXData(g.ewt, g.lwt, g.flow)).head, nodes.map(n => SiteNodeData(n.ewt, n.lwt, n.flow)))
+    })
     Accepted
   }
 }
