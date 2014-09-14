@@ -109,9 +109,9 @@ CREATE INDEX SiteData_node9_lwt  ON SiteData(node9_lwt);
 CREATE INDEX SiteData_node9_flow ON SiteData(node9_flow);
 
 CREATE TABLE DataProvider (
-    id       BIGSERIAL PRIMARY KEY,
-    name     TEXT      NOT NULL,
-    token    TEXT      NOT NULL
+    id       BIGSERIAL    PRIMARY KEY,
+    name     VARCHAR(255) NOT NULL,
+    token    VARCHAR(372) NOT NULL
 );
 
 CREATE INDEX DataProvider_token ON DataProvider(token);

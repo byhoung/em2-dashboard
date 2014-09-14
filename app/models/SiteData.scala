@@ -145,7 +145,7 @@ object SiteData {
     DB.withTransaction { implicit connection =>
       siteDatas.foreach { siteData =>
         val nodes: Seq[Some[SiteNodeData]] = siteData.nodes.map(Some(_))
-        val params: Seq[(Any, ParameterValue[_])] = Seq(
+        val params = Seq[NamedParameter](
           'sitename -> siteData.siteName,
           'timestamp -> siteData.timestamp,
           'ghx_ewt -> siteData.ghx.ewt,
