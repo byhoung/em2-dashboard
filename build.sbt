@@ -1,6 +1,3 @@
-import com.typesafe.sbt.SbtNativePackager._
-import NativePackagerKeys._
-
 name := "em2-dashboard"
 
 version := "1.0-SNAPSHOT"
