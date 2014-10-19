@@ -3,6 +3,7 @@ package models
 import anorm.{~, _}
 import play.api.Play.current
 import play.api.db.DB
+import play.api.libs.json.Json
 
 case class SiteGHXData(ewt:     Double,
                        lwt:     Double,
@@ -11,12 +12,20 @@ case class SiteGHXData(ewt:     Double,
                        maxLwt:  Option[Double] = None,
                        maxFlow: Option[Double] = None)
 
+object SiteGHXData {
+  implicit val format = Json.format[SiteGHXData]
+}
+
 case class SiteNodeData(ewt:     Double,
                         lwt:     Double,
                         flow:    Double,
                         maxEwt:  Option[Double] = None,
                         maxLwt:  Option[Double] = None,
                         maxFlow: Option[Double] = None)
+
+object SiteNodeData {
+  implicit val format = Json.format[SiteNodeData]
+}
 
 case class SiteData(timestamp: Long,
                     siteName: String,
@@ -26,6 +35,8 @@ case class SiteData(timestamp: Long,
 }
 
 object SiteData {
+  implicit val format = Json.format[SiteData]
+
   val mapper = (
     SqlParser.get[Long]          ("timestamp")
   ~ SqlParser.get[String]        ("sitename")

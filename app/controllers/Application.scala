@@ -1,6 +1,8 @@
 package controllers
 
-import models.{DataProvider, SiteData, SiteGHXData, SiteNodeData}
+import java.util.Calendar
+
+import models._
 import play.api.libs.json._
 import play.api.mvc._
 
@@ -20,8 +22,18 @@ object Application extends Controller {
     implicit val format = Json.format[PostSiteData]
   }
 
+  val trilliumSiteLoader = TrilliumSiteLoader("Trillium-178.csv")
+
   def siteData(site: String) = Action {
-    NotFound
+    site match {
+      case "trillium" =>
+        val calendar = Calendar.getInstance()
+        val totalSeconds = calendar.get(Calendar.SECOND) + (calendar.get(Calendar.MINUTE) * 60) + (calendar.get(Calendar.HOUR_OF_DAY) * 60 * 60)
+        val hour = (totalSeconds * 0.10138888888) % 8760
+        println("%d - %.0f".format(totalSeconds, hour))
+        Ok(Json.toJson(trilliumSiteLoader.siteDataAtHour(hour)))
+      case _ => NotFound
+    }
   }
 
   def authenticated[A](block: DataProvider => Result)(implicit request: Request[A]) = {
