@@ -9,7 +9,7 @@ var coory = ghxBody.attr('y');
 var barStart = ghxWidth/2;
 
 var xGhx = d3.scale.linear()
-		    .domain([-60, 40])
+		    .domain([-200, 200])
 		    .range([0, ghxWidth]);
 
 var barWrap = d3.select('.bar').data([value]);

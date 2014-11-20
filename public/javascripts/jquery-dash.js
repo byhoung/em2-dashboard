@@ -27,31 +27,32 @@ $(function(){
 [Read & Iterate JSON]
 ------------------------------------------------------------------*/
 
-  $.getJSON(document.URL + '/data', function (info) {
-      data = info
+  $.getJSON('/assets/data.json', function (info) {
+      data = info;
       var size = Number(data.length);
       rangeControl(size);
-      $.each(data, function (key) {     
-              iterateData(key);
+      $.each(data, function (key, value) {     
+              iterateData(key, value);
           });
   }); 
 
-  function iterateData(key, first){
+  function iterateData(key, value){
       delay += interval;
       duration = interval / 5;
-      if(key == first) {
+      if(key == value.timestamp) {
         timerHandler[key] = setTimeout(function(){
-            $(".hour").text("Hour " + key)//data[key].date
+            $(".hour").text("Hour " + value.timestamp);//data[key].date
             updateFlows(key, duration);
             updatetempGauges(key, duration);
-          }, 500)
+          }, 500);
       } else {timerHandler[key] = setTimeout(function(){
-          $(".hour").text("Hour " + key)//data[key].date
-          updateFlows(key, duration);
+          $(".hour").text("Hour " + value.timestamp);//data[key].date
           updatetempGauges(key, duration);
-        }, delay)
+          updatePaths(key, duration);
+          updateGhx(key);
+        }, delay);
       } 
-  };  
+  }
 
 /*------------------------------------------------------------------
 [Range Control]
@@ -70,7 +71,7 @@ function rangeControl(size){
     });
     $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
       " - " + $( "#slider-range" ).slider( "values", 1 ) );
-};  
+}
 
 /*------------------------------------------------------------------
 [Speed Control]
@@ -152,30 +153,30 @@ function rangeControl(size){
         converter = 470;
 
     delay = 0;
-    console.log(currentIndex)
+    console.log(currentIndex);
 
     for (var key in timerHandler) {
-      clearTimeout(timerHandler[key])
+      clearTimeout(timerHandler[key]);
     }
 
     for (rangeKey=min; rangeKey<=max; rangeKey++) {
-      iterateData(rangeKey, min)
+      iterateData(rangeKey, min);
     }
   }
 
   function resetDraw() {
-    $(".hour").text("Hour " + 0)
+    $(".hour").text("Hour " + 0);
     for (var flowkey in flows) {
-      flows[flowkey].redraw(0,0,0)
+      flows[flowkey].redraw(0,0,0);
     }
 
     for (var tempkey in tempgauges) {
-      tempgauges[tempkey].redraw(0,0,0)
+      tempgauges[tempkey].redraw(0,0,0);
     }
 
   }
 
-})
+});
 
 /*------------------------------------------------------------------
 [Count # of keys]

@@ -55,6 +55,16 @@ function Path(name, pathConfig)
 							.attr("stroke-miterlimit", 10)
 							.attr("d", this.pathConfig.path);
 			}
+			if(this.pathConfig.check == ("pump"))
+			{
+				gBody.append("svg:polygon")
+
+							.attr("id", this.name)
+							.attr("class", "pump")
+							.attr("fill", inactive())
+							.attr("stroke-miterlimit", 10)
+							.attr("points", this.pathConfig.path);
+			}
 			if(this.pathConfig.check == ("ghx"))
 			{
 				var data =[0];
@@ -73,7 +83,7 @@ function Path(name, pathConfig)
 							.attr("width", this.pathConfig.cwidth)
 							.attr("height", this.pathConfig.cheight);
 
-				var ghxWrap = gBody.append("g")
+				var ghxWrap = gBody.append("g");
 
 				var ghxData = ghxWrap.selectAll(".ghx")
 							.data(data)
@@ -88,40 +98,43 @@ function Path(name, pathConfig)
 
 		this.redrawPaths = function(value)
 		{
-			this.body = d3.select("#" + name)
-				if(this.body.attr('class') != "valve"){
-					switch(value)
-					{
-						case 0:
-							this.body.transition()
-									.duration(2000) 
-									.style("fill", defaultColor()) //default
-						break;
-						case 1:
-							this.body.transition()
-									.duration(2000)
-									//Cold
-									.style("fill", coldColor())
-						break;
-						case 2:
-							this.body.transition()
-									.duration(2000)
-									//Cool
-									.style("fill", coolColor())
-						break;
-						case 3:
+			this.body = d3.select("#" + name);
+			console.log(this.body + value);
+				if(this.body.attr('class') === "piping"){
+					console.log(value);
+					if(value == 0){
+						this.body.transition()
+								.duration(2000) 
+								.style("fill", defaultColor()); //default
+					} else if(value < 25) {
+						this.body.transition()
+								.duration(2000)
+								//Cold
+								.style("fill", coldColor());
+					} else if(value >= 25 && value < 50) {
+						this.body.transition()
+								.duration(2000)
+								//Cool
+								.style("fill", coolColor());
+					} else if (value >= 50 && value < 75) {
 							this.body.transition()
 									.duration(2000)
 									//Warm
-									.style("fill", warmColor())
-						break;
-						case 4:
-							this.body.transition()
-									.duration(2000)
-									//Hot
-									.style("fill", hotColor())
-						break;
-					} 
+									.style("fill", warmColor());
+					} else {
+						this.body.transition()
+								.duration(2000)
+								//Hot
+								.style("fill", hotColor());
+					}
+				} else if (this.body.attr('class') === "pump" || this.body.attr('class') === "module"){
+						if(value === 0) {
+							this.body
+								.style("fill", defaultColor());
+						} else if(value >= 0) {
+							this.body
+								.style("fill", hotColor());
+						}
 				} else {
 						switch(value)
 						{
