@@ -31,7 +31,7 @@ object Application extends Controller {
         val totalSeconds = calendar.get(Calendar.SECOND) + (calendar.get(Calendar.MINUTE) * 60) + (calendar.get(Calendar.HOUR_OF_DAY) * 60 * 60)
         val hour = (totalSeconds * 0.10138888888) % 8760
         println("%d - %.0f".format(totalSeconds, hour))
-        Ok(Json.toJson(trilliumSiteLoader.siteDataAtHour(hour)))
+        Ok(Json.toJson(Seq(trilliumSiteLoader.siteDataAtHour(hour))))
       case _ => NotFound
     }
   }
