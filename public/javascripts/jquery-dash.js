@@ -26,15 +26,17 @@ $(function(){
 /*------------------------------------------------------------------
 [Read & Iterate JSON]
 ------------------------------------------------------------------*/
-
-  $.getJSON('/assets/data.json', function (info) {
-      data = info;
-      var size = Number(data.length);
-      rangeControl(size);
-      $.each(data, function (key, value) {     
-              iterateData(key, value);
-          });
-  }); 
+  setInterval(function(){
+      $.getJSON('trillium/data', function (info) {
+        data = info;
+        console.log(data);
+        var size = Number(data.length);
+        rangeControl(size);
+        $.each(data, function (key, value) {     
+                iterateData(key, value);
+            });
+    }); 
+  },10000);
 
   function iterateData(key, value){
       delay += interval;
