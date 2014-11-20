@@ -121,7 +121,9 @@ var tone = {
 	},
 	ffour = {
 		lwt: 0,ewt: 0
-	};
+	},
+	pumpone,
+	pumptwo;
 
 flows = [];
 tempgauges = [];
@@ -295,6 +297,7 @@ function updateAll(index, duration)
 function updatetempGauges(index, duration)
 {
 	tone.lwt = Math.round(data[index].ghx.lwt); //GHX
+	tnine.ewt = Math.round(data[index].ghx.ewt); //GHX
 	ttwo.ewt = Math.round(data[index].nodes[1].ewt); //BTU1
 	ttwo.lwt = Math.round(data[index].nodes[1].lwt); //BTU1
 	tfour.ewt = Math.round(data[index].nodes[2].ewt); //BTU2
@@ -311,7 +314,8 @@ function updatetempGauges(index, duration)
 	fthree = Math.round(data[index].nodes[4].flow); //BTU4
 	ffour = Math.round(data[index].nodes[5].flow); //HEX-1
 
-	tnine.ewt = Math.round(data[index].ghx.ewt); //GHX
+	pumpone = Math.round(data[index].nodes[1].flow); //CP1
+	pumptwo = Math.round(data[index].nodes[2].flow); //BTU2
 
 	for (var tempkey in tempgauges)
 	{
@@ -325,7 +329,21 @@ function updatetempGauges(index, duration)
 		tempgauges["t4"].redraw(tfour.ewt,0,duration);
 		tempgauges["t6"].redraw(tsix.lwt,0,duration);
 		tempgauges["t7"].redraw(tsev.lwt,0,duration);
+		tempgauges["t8"].redraw(teight.lwt,0,duration);
 		tempgauges["t9"].redraw(tnine.ewt,0,duration);
+
+		if(pumpone > 0) {
+			tempgauges["t2"].redraw(ttwo.lwt,0,duration);
+		} else {
+			tempgauges["t2"].redraw(-1,0,duration);
+		}
+
+		if(ffour > 0){
+			tempgauges["t7"].redraw(tsev.lwt,0,duration);
+		} else {
+			tempgauges["t7"].redraw(-1,0,duration);
+		}
+
 
 		}
 	}
@@ -346,59 +364,114 @@ function updatetempGauges(index, duration)
 		}
 	}
 	currentIndex = index;
-}
 
-function updatePaths(index, duration)
-{
-		//var value = getRandomHeat(paths[pathkey]);
-		//paths[pathkey].redrawPaths(value);
+	//var value = getRandomHeat(paths[pathkey]);
+	//paths[pathkey].redrawPaths(value);
 
-		//pumps & mods
-		var pumpone = data[index].nodes[1].flow; //CP1
-		var pumptwo = data[index].nodes[2].flow; //BTU2
+	//pumps & mods
 
-		paths["pump1"].redrawPaths(pumpone);
-		paths["pump2"].redrawPaths(pumptwo);
-		paths["pump3"].redrawPaths(ffour);
-		rects["rect19"].redrawPaths(pumpone);
-		rects["rect16"].redrawPaths(ftwo);
-		rects["rect17"].redrawPaths(fthree);
-		rects["rect18"].redrawPaths(ffour);
-		paths["valve3"].redrawPaths(ffour);
+	paths["pump1"].redrawPaths(pumpone);
+	paths["pump2"].redrawPaths(pumptwo);
+	paths["pump3"].redrawPaths(ffour);
+	rects["rect19"].redrawPaths(pumpone);
+	rects["rect16"].redrawPaths(ftwo);
+	rects["rect17"].redrawPaths(fthree);
+	rects["rect18"].redrawPaths(ffour);
+	paths["valve3"].redrawPaths(ffour);
 
 
-		//pipes
-		rects["pipe1"].redrawPaths(tone.lwt);
-		rects["pipe8"].redrawPaths(teight.lwt);
-		rects["pipe55"].redrawPaths(tfour.lwt);
-		rects["rect14"].redrawPaths(tsix.lwt);
-		rects["rect12"].redrawPaths(teight.lwt);
+	//pipes
+	rects["pipe1"].redrawPaths(tone.lwt);
+	rects["pipe8"].redrawPaths(teight.lwt);
+	rects["pipe55"].redrawPaths(tfour.lwt);
+	rects["rect14"].redrawPaths(tsix.lwt);
+	rects["rect12"].redrawPaths(teight.lwt);
 
+	paths["pipe5"].redrawPaths(tfour.ewt);
+	paths["pipe7"].redrawPaths(teight.ewt);
+	paths["pipe9"].redrawPaths(tsix.lwt);
+	paths["pipe15"].redrawPaths(tnine.ewt);
+
+	if(pumpone > 0){
+		rects["rect4"].redrawPaths(ttwo.lwt);
 		paths["pipe2"].redrawPaths(ttwo.ewt);
 		paths["pipe3"].redrawPaths(ttwo.lwt);
-		paths["pipe5"].redrawPaths(tfour.ewt);
-		paths["pipe7"].redrawPaths(teight.ewt);
+	} else {
+		rects["rect4"].redrawPaths(tone.lwt);
+		paths["pipe2"].redrawPaths(0);
+		paths["pipe3"].redrawPaths(0);
+	}
+
+	if(ffour > 0){
+		rects["pipe56"].redrawPaths(0);
+		rects["rect13"].redrawPaths(0);
+		rects["rect6"].redrawPaths(teight.ewt);
 		paths["pipe10"].redrawPaths(tsev.ewt);
 		paths["pipe11"].redrawPaths(tsev.lwt);
-		paths["pipe9"].redrawPaths(tsix.lwt);
-		paths["pipe15"].redrawPaths(tnine.ewt);
-
-		if(pumpone > 0){
-			rects["rect4"].redrawPaths(ttwo.lwt);
-		} else {
-			rects["rect4"].redrawPaths(tone.lwt);
-		}
-
-		if(ffour > 0){
-			rects["pipe56"].redrawPaths(0);
-			rects["rect13"].redrawPaths(0);
-			rects["rect6"].redrawPaths(teight.ewt);
-		} else {
-			rects["pipe56"].redrawPaths(tfour.lwt);
-			rects["rect13"].redrawPaths(teight.lwt);
-			rects["rect6"].redrawPaths(tfour.lwt);
-		}
+	} else {
+		rects["pipe56"].redrawPaths(tfour.lwt);
+		rects["rect13"].redrawPaths(teight.lwt);
+		rects["rect6"].redrawPaths(tfour.lwt);
+		paths["pipe10"].redrawPaths(0);
+		paths["pipe11"].redrawPaths(0);
+	}
 }
+
+// function updatePaths(index, duration)
+// {
+// 		//var value = getRandomHeat(paths[pathkey]);
+// 		//paths[pathkey].redrawPaths(value);
+
+// 		//pumps & mods
+// 		var pumpone = data[index].nodes[1].flow; //CP1
+// 		var pumptwo = data[index].nodes[2].flow; //BTU2
+
+// 		paths["pump1"].redrawPaths(pumpone);
+// 		paths["pump2"].redrawPaths(pumptwo);
+// 		paths["pump3"].redrawPaths(ffour);
+// 		rects["rect19"].redrawPaths(pumpone);
+// 		rects["rect16"].redrawPaths(ftwo);
+// 		rects["rect17"].redrawPaths(fthree);
+// 		rects["rect18"].redrawPaths(ffour);
+// 		paths["valve3"].redrawPaths(ffour);
+
+
+// 		//pipes
+// 		rects["pipe1"].redrawPaths(tone.lwt);
+// 		rects["pipe8"].redrawPaths(teight.lwt);
+// 		rects["pipe55"].redrawPaths(tfour.lwt);
+// 		rects["rect14"].redrawPaths(tsix.lwt);
+// 		rects["rect12"].redrawPaths(teight.lwt);
+
+// 		paths["pipe5"].redrawPaths(tfour.ewt);
+// 		paths["pipe7"].redrawPaths(teight.ewt);
+// 		paths["pipe9"].redrawPaths(tsix.lwt);
+// 		paths["pipe15"].redrawPaths(tnine.ewt);
+
+// 		if(pumpone > 0){
+// 			rects["rect4"].redrawPaths(ttwo.lwt);
+// 			paths["pipe2"].redrawPaths(ttwo.ewt);
+// 			paths["pipe3"].redrawPaths(ttwo.lwt);
+// 		} else {
+// 			rects["rect4"].redrawPaths(tone.lwt);
+// 			paths["pipe2"].redrawPaths(0);
+// 			paths["pipe3"].redrawPaths(0);
+// 		}
+
+// 		if(ffour > 0){
+// 			rects["pipe56"].redrawPaths(0);
+// 			rects["rect13"].redrawPaths(0);
+// 			rects["rect6"].redrawPaths(teight.ewt);
+// 			paths["pipe10"].redrawPaths(tsev.ewt);
+// 			paths["pipe11"].redrawPaths(tsev.lwt);
+// 		} else {
+// 			rects["pipe56"].redrawPaths(tfour.lwt);
+// 			rects["rect13"].redrawPaths(teight.lwt);
+// 			rects["rect6"].redrawPaths(tfour.lwt);
+// 			paths["pipe10"].redrawPaths(0);
+// 			paths["pipe11"].redrawPaths(0);
+// 		}
+// }
 
 function updateGhx(index) {
 	var value = data[index].ghx.ewt//getRandomValue(undefined, -60, 40); //get random value

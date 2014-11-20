@@ -139,10 +139,16 @@ function Temp(placeholderName, configuration)
                 break;
             }
 
-      var tempValue = this.body.selectAll(".current")
-        .transition()
-        .text(value + degreeSign);
-
+      var tempValue = this.body.selectAll(".current");
+      if(value === -1){
+        tempValue
+          .transition()
+          .text('--');
+      } else {
+        tempValue
+          .transition()
+          .text(value + degreeSign);
+      }
       this.body.select(".foreground")
         .transition()
         .duration(duration)
