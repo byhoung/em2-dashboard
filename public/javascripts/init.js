@@ -110,8 +110,11 @@ var tone = {
 	tnine = {
 		lwt: 0,ewt: 0
 	},
-	fone = {
+	fzero = {
 		lwt: 0,ewt: 0
+	},
+	fone = {
+		lwt: 0, ewt: 0
 	},
 	ftwo = {
 		lwt: 0,ewt: 0
@@ -212,16 +215,15 @@ function createPaths()
 	/*Create all curved pipes*/
 	createPath("pipe2","pipe","m 24.021198,339.37412 0.21875,46.125 c 0.09444,21.59979 17.5875,39.1875 39.1875,39.1875 l 168.937342,0 -0.0547,-19.4141 -168.976442,-0.17965 c -10.799994,-0.0115 -19.59375,-8.79375 -19.59375,-19.59375 l -0.21875,-46.125 z");
 	createPath("pipe3","pipe","m 63.30955,166.36826 h 20 l 0,0 h 149 v -19.5 h -149 l 0,0 h -20 c -21.6,0 -39.1,17.6 -39.1,39.1 v 54.9 h 19.6 v -54.9 c 0,-10.8 8.7,-19.6 19.5,-19.6 z");
-	createPath("pipe5","pipe","m 271.4375,64.8125 c -21.6,0 -39.1875,17.587503 -39.1875,39.1875 l 0,42.8125 19.59375,0 0,-42.8125 c 0,-10.799997 8.79375,-19.59375 19.59375,-19.59375 l 118.0625,0 4.71875,0 69.625,0 4.375,0 c 118.85684,0 -71.50035,0 34.8125,0 l 0,-19.59375 c 118.28767,0 44.23325,0 -34.8125,0 l -4.375,0 -69.625,0 -4.71875,0 z");
+	createPath("pipe5","pipe","m 271.4375,64.8125 c -21.6,0 -39.1875,17.587503 -39.1875,39.1875 l 0,42.8125 19.59375,0 0,-42.8125 c 0,-10.799997 8.79375,-19.59375 19.59375,-19.59375 l 118.0625,0 4.71875,0 69.625,0 4.375,0 144.8125,0 0,136.90625 19.625,0 0,-136.90625 44.375,0 0,-19.59375 -90.6875,0 -64.5,0 -53.625,0 -4.375,0 -69.625,0 -4.71875,0 z");
 	createPath("pipe7","pipe","m 612.99702,240.86825 0,25.875 c 0,21.6 17.61875,39.21875 39.21875,39.21875 l 26,0 0,-19.59375 -26,0 c -10.8,0 -19.59375,-8.825 -19.59375,-19.625 l 0,-25.875 -19.625,0 z");
-	createPath("pipe9","pipe","M 1196.6095,64.868258 H 923.70955 v 19.6 h 272.89995 c 10.8,0 19.6,8.8 19.6,19.600002 v 182.3 h 19.6 v -182.3 c 0,-21.600002 -17.6,-39.200002 -39.2,-39.200002 z");
-	createPath("pipe10","pipe","m 1132.7399,305.90537 0,48.46875 c 6.7502,-1.9227 12.5986,-1.87231 19.5937,0.1875 l 0,-48.65625 -19.5937,0 z m 19.5937,118.0625 c -3.5907,1.05511 -6.8915,1.59375 -10.0937,1.59375 -3.0628,0 -6.1897,-0.4383 -9.5,-1.375 l 0,37.3125 c 0,10.8 -8.7938,19.59375 -19.5938,19.59375 l -189.4999,-0.28125 0,19.59375 189.4999,0.28125 c 21.6,0 39.1875,-17.5875 39.1875,-39.1875 l 0,-37.53125 z");
-	createPath("pipe11","pipe","m 573.10955,480.76826 c -10.8,0 -19.6,-8.8 -19.6,-19.6 l 0,-200.7 c 0,-10.8 8.8,-19.6 19.6,-19.6 l 39.9,0 0,-19.6 -39.9,0 c -21.6,0 -39.2,17.6 -39.2,39.2 l 0,200.7 c 0,21.6 17.6,39.2 39.2,39.2 l 251.85914,0 0,-19.6 -251.85914,0 z");
+	createPath("pipe9","pipe","m 1196.6095,64.868258 -418.89995,0 0,19.6 418.89995,0 c 10.8,0 19.6,8.8 19.6,19.600002 l 0,182.3 19.6,0 0,-182.3 c 0,-21.600002 -17.6,-39.200002 -39.2,-39.200002 z");
+	createPath("pipe10","pipe","m 1132.7399,305.90537 0,48.46875 c 6.7502,-1.9227 12.5986,-1.87231 19.5937,0.1875 l 0,-48.65625 z m 19.5937,118.0625 c -3.5907,1.05511 -6.8915,1.59375 -10.0937,1.59375 -3.0628,0 -6.1897,-0.4383 -9.5,-1.375 l 0,37.3125 c 0,10.8 -8.7938,19.59375 -19.5938,19.59375 l -33.4999,-0.28125 0,19.59375 33.4999,0.28125 c 21.6,0 39.1875,-17.5875 39.1875,-39.1875 z");
+	createPath("pipe11","pipe","m 573.10955,480.76826 c -10.8,0 -19.6,-8.8 -19.6,-19.6 l 0,-200.7 c 0,-10.8 8.8,-19.6 19.6,-19.6 l 39.9,0 0,-19.6 -39.9,0 c -21.6,0 -39.2,17.6 -39.2,39.2 l 0,200.7 c 0,21.6 17.6,39.2 39.2,39.2 l 407.85914,0 0,-19.6 z");
 	createPath("pipe15","pipe","m 1216.2095,305.96826 v 336.2 c 0,10.8 -8.8,19.6 -19.6,19.6 H 602.30955 c -21.6,0 -39.2,17.6 -39.2,39.2 v 60.1 h 19.6 v -60.2 c 0,-10.8 8.8,-19.6 19.6,-19.6 h 594.29995 c 21.6,0 39.2,-17.6 39.2,-39.2 v -336.1 h -19.6 z");
 	/*Create all rectangular pipes*/
 	createRect("pipe1","rect","232.30956","166.36826","19.6","594.70001");
 	createRect("rect4","rect","232.30956","146.86826","19.6","19.6");
-	createRect("pipe55","rect","504.05194","64.828499","320.62177","19.6");
 	createRect("pipe56","rect","612.78894","84.496231","19.6","136.6096");
 	createRect("rect6","rect","613.00952","221.26825","19.6","19.6");
 	createRect("pipe8","rect","776.80951","286.36826","356.20001","19.6");
@@ -229,20 +231,18 @@ function createPaths()
 	createRect("rect13","rect","1152.5096","286.36826","63.700001","19.6");
 	createRect("rect14","rect","1216.2096","286.36826","19.6","19.6");
 	/*Create all modules*/
-	createRect("rect16","mod","831.11621","64.854256","86.169601","54.374401");
+	createRect("rect16","mod","684.32318","65","86.169601","54.374401");
 	createRect("rect17","mod","684.32318","251.59773","86.169601","54.374401");
-	createRect("rect18","mod","831.25769","480.62988","86.169601","54.374401");
+	createRect("rect18","mod","987.7","480.64612","86.169601","54.374401");
 	createRect("rect19","mod","24.119961","247.06519","54.374401","86.169601");
 	/*Create all valves*/
 	createPath("valve3","valve","m 1142.2086,425.64243 c -3.568,0 -7.213,-0.618 -11.147,-1.895 l -4.522,-1.462 v -65.902 l 4.522,-1.462 c 7.676,-2.491 14.005,-2.558 21.846,-0.144 l 4.599,1.425 v 66.266 l -4.599,1.423 c -3.824,1.177 -7.319,1.751 -10.699,1.751 z");
-	createPath("pump1", "pump", "179.8,382.5 179.8,447.7 78.8,415.1 ");
-	createPath("pump2", "pump", "476.2,42.4 476.2,107.5 577.2,74.9 ");
-	createPath("pump3", "pump", "510.7,417.3 575.9,417.3 543.3,316.3 ");
 	/*Create all flows*/
-	createFlow("f1","F1",0,2500,70,0,243,675);
-	createFlow("f2","F2",0,2500,0,0,732,75);
+	createFlow("f0","F0",0,2500,70,0,243,675);
+	createFlow("f1","F1",0,2500,0,0,140,415);
+	createFlow("f2","F2",0,2500,0,0,875,75);
 	createFlow("f3","F3",0,2500,0,0,880,298);
-	createFlow("f4","F4",0,2500,0,0,1034,491);
+	createFlow("f4","F4",0,2500,0,0,881.56494,493.03247);
 	/*Create all temps*/
 	createTemp("t1","T1",30,100,60,0,243,510);
     createTemp("t2","T2",30,100,0,0,140,156);
@@ -309,7 +309,8 @@ function updatetempGauges(index, duration)
 	tsev.ewt = Math.round(data[index].nodes[5].lwt); //HEX-1
 	tsev.lwt = Math.round(data[index].nodes[5].lwt); //HEX-1
 
-	fone = Math.round(data[index].ghx.flow); //GHX
+	fzero = Math.round(data[index].ghx.flow); //GHX
+	fone = Math.round(data[index].nodes[1].flow); //BTU1
 	ftwo = Math.round(data[index].nodes[3].flow); //BTU3
 	fthree = Math.round(data[index].nodes[4].flow); //BTU4
 	ffour = Math.round(data[index].nodes[5].flow); //HEX-1
@@ -357,6 +358,7 @@ function updatetempGauges(index, duration)
 			flows[flowkey].redraw(value, peak, duration);
 
 
+			flows["f0"].redraw(fzero,0,duration);
 			flows["f1"].redraw(fone,0,duration);
 			flows["f2"].redraw(ftwo,0,duration);
 			flows["f3"].redraw(fthree,0,duration);
@@ -370,9 +372,6 @@ function updatetempGauges(index, duration)
 
 	//pumps & mods
 
-	paths["pump1"].redrawPaths(pumpone);
-	paths["pump2"].redrawPaths(pumptwo);
-	paths["pump3"].redrawPaths(ffour);
 	rects["rect19"].redrawPaths(pumpone);
 	rects["rect16"].redrawPaths(ftwo);
 	rects["rect17"].redrawPaths(fthree);
@@ -383,7 +382,6 @@ function updatetempGauges(index, duration)
 	//pipes
 	rects["pipe1"].redrawPaths(tone.lwt);
 	rects["pipe8"].redrawPaths(teight.lwt);
-	rects["pipe55"].redrawPaths(tfour.lwt);
 	rects["rect14"].redrawPaths(tsix.lwt);
 	rects["rect12"].redrawPaths(teight.lwt);
 
@@ -509,20 +507,44 @@ function defaultColor(){
 	return "#424242";
 }
 
-function coldColor(){
+function colderColor(){
 	return "#003399";
 }
 
+function coldColor(){
+	return "#0047d5";
+}
+
+function coolerColor(){
+	return "#004eff";
+}
+
 function coolColor(){
-	return "#009eff";
+	return "#00aeff";
+}
+
+function lessCoolColor(){
+	return "#89daff";
+}
+
+function lessWarmColor(){
+	return "#fff661";
 }
 
 function warmColor(){
-	return "#ff5f24";
+	return "#ffc600";
+}
+
+function warmerColor(){
+	return "#ffa200";
 }
 
 function hotColor(){
-	return "#990000";
+	return "#ff5a00";
+}
+
+function hotterColor(){
+	return "#c82100";
 }
 
 function inactive(){

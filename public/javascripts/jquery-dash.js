@@ -29,7 +29,6 @@ $(function(){
   setInterval(function(){
       $.getJSON('trillium/data', function (info) {
         data = info;
-        console.log(data);
         var size = Number(data.length);
         rangeControl(size);
         $.each(data, function (key, value) {     
@@ -41,16 +40,28 @@ $(function(){
   function iterateData(key, value){
       delay += interval;
       duration = interval / 5;
+
+      //Convert Unix timestamp to DateTime
+      var timestamp = new Date(value.timestamp);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var year = timestamp.getFullYear();
+      var month = months[timestamp.getMonth()];
+      var date = timestamp.getDate();
+      var hour = timestamp.getHours();
+      var min = timestamp.getMinutes();
+      var sec = timestamp.getSeconds();
+
       if(key == value.timestamp) {
         timerHandler[key] = setTimeout(function(){
-            $(".hour").text("Hour " + value.timestamp);//data[key].date
+            //Display DateTime
+            $(".hour").text(date + ', ' + month + ' ' + year + ' ' + hour + ':00');//data[key].date
             updateFlows(key, duration);
             updatetempGauges(key, duration);
           }, 500);
       } else {timerHandler[key] = setTimeout(function(){
-          $(".hour").text("Hour " + value.timestamp);//data[key].date
+          //Display DateTime
+          $(".hour").text(date + ', ' + month + ' ' + year + ' ' + hour + ':00');//data[key].date
           updatetempGauges(key, duration);
-          updatePaths(key, duration);
           updateGhx(key);
         }, delay);
       } 
@@ -155,7 +166,6 @@ function rangeControl(size){
         converter = 470;
 
     delay = 0;
-    console.log(currentIndex);
 
     for (var key in timerHandler) {
       clearTimeout(timerHandler[key]);

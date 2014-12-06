@@ -106,26 +106,56 @@ function Path(name, pathConfig)
 						this.body.transition()
 								.duration(2000) 
 								.style("fill", defaultColor()); //default
-					} else if(value < 25) {
+					} else if(value < 38) {
 						this.body.transition()
 								.duration(2000)
 								//Cold
-								.style("fill", coldColor());
-					} else if(value >= 25 && value < 50) {
+								.style("fill", colderColor());
+					} else if(value >= 38 && value < 46) {
 						this.body.transition()
 								.duration(2000)
 								//Cool
-								.style("fill", coolColor());
-					} else if (value >= 50 && value < 75) {
+								.style("fill", coldColor());
+					} else if (value >= 46 && value < 54) {
+							this.body.transition()
+									.duration(2000)
+									//Warm
+									.style("fill", coolerColor());
+					} else if (value >= 54 && value < 62) {
+							this.body.transition()
+									.duration(2000)
+									//Warm
+									.style("fill", coolColor());
+					} else if (value >= 62 && value < 70) {
+							this.body.transition()
+									.duration(2000)
+									//Warm
+									.style("fill", lessCoolColor());
+					} else if (value >= 70 && value < 78) {
+							this.body.transition()
+									.duration(2000)
+									//Warm
+									.style("fill", lessWarmColor());
+					} else if (value >= 78 && value < 86) {
 							this.body.transition()
 									.duration(2000)
 									//Warm
 									.style("fill", warmColor());
+					} else if (value >= 86 && value < 94) {
+							this.body.transition()
+									.duration(2000)
+									//Warm
+									.style("fill", warmerColor());
+					} else if (value >= 94 && value < 102) {
+							this.body.transition()
+									.duration(2000)
+									//Warm
+									.style("fill", hotColor());
 					} else {
 						this.body.transition()
 								.duration(2000)
 								//Hot
-								.style("fill", hotColor());
+								.style("fill", hotterColor());
 					}
 				} else if (this.body.attr('class') === "pump" || this.body.attr('class') === "module"){
 						if(value === 0) {

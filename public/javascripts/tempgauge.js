@@ -118,26 +118,48 @@ function Temp(placeholderName, configuration)
         .startAngle(0);
 
 
-      switch(true)
-            {
-              case (degreeValue >= 270):
-              //Hot
-                newColor = hotColor();
-                break;
-              case (degreeValue >= 180):
-              //Warm
-                newColor = warmColor();
-                break;
-              case (degreeValue >= 90):
-              //Cool
-                newColor = coolColor();
-                break;
-              default:
-              //Cold
-                newColor = coldColor();
+      // switch(true)
+      //       {
+      //         case (degreeValue >= 270):
+      //         //Hot
+      //           newColor = hotterColor();
+      //           break;
+      //         case (degreeValue >= 180):
+      //         //Warm
+      //           newColor = warmerColor();
+      //           break;
+      //         case (degreeValue >= 90):
+      //         //Cool
+      //           newColor = coolerColor();
+      //           break;
+      //         default:
+      //         //Cold
+      //           newColor = colderColor();
 
-                break;
-            }
+      //           break;
+      //       }
+
+      if(value < 38) {
+        newColor = colderColor();
+      } else if(value >= 38 && value < 46) {
+        newColor = coldColor();
+      } else if(value >= 46 && value < 54) {
+        newColor = coolerColor();
+      } else if(value >= 54 && value < 62) {
+        newColor = coolColor();
+      } else if(value >= 62 && value < 70) {
+        newColor = lessCoolColor();
+      } else if(value >= 70 && value < 78) {
+        newColor = lessWarmColor();
+      } else if(value >= 78 && value < 86) {
+        newColor = warmColor();
+      } else if(value >= 86 && value < 94) {
+        newColor = warmerColor();
+      } else if(value >= 94 && value < 102) {
+        newColor = hotColor();
+      } else if(degreeValue >= 102) {
+        newColor = hotterColor();
+      }
 
       var tempValue = this.body.selectAll(".current");
       if(value === -1){
