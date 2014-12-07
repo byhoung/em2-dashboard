@@ -14,6 +14,74 @@ window.onload = function initialize()
 	//setInterval(updateGhx, 5000);
 };
 
+/*------------------------------------------------------------------
+7. [Define Colors]
+------------------------------------------------------------------*/
+
+function getRandomHeat(){
+	return Math.floor(5 * Math.random());
+}
+
+function defaultColor(){
+	return "#424242";
+}
+
+function colderColor(){
+	return "#003399";
+}
+
+function coldColor(){
+	return "#0047d5";
+}
+
+function coolerColor(){
+	return "#004eff";
+}
+
+function coolColor(){
+	return "#00aeff";
+}
+
+function lessCoolColor(){
+	return "#89daff";
+}
+
+function lessWarmColor(){
+	return "#fff661";
+}
+
+function warmColor(){
+	return "#ffc600";
+}
+
+function warmerColor(){
+	return "#ffa200";
+}
+
+function hotColor(){
+	return "#ff5a00";
+}
+
+function hotterColor(){
+	return "#c82100";
+}
+
+function inactive(){
+	return "#313131";
+}
+
+function active(){
+	return "#92CD00";
+}
+
+function gaugeColor(){
+	return "#303030";
+}
+
+function textColor(){
+	return "#dfdfdf";
+}
+
 function initializeWindow(){
 
 	fill = d3.scale.category20(),
@@ -58,8 +126,25 @@ function initializeWindow(){
   		.attr("stop-color", "rgb(255,255,255)");
 
   gradient.append("stop")
-  		.attr("offset", "100%")
+  		.attr("offset", "50%")
   		.attr("stop-color", "rgb(165,165,165)");
+
+  fieldGradient = defs.append("linearGradient")
+  		.attr("id", "fieldGradient")
+  		.attr("x1", "0%")
+  		.attr("y1", "0%")
+  		.attr("x2", "100%")
+  		.attr("y2", "0%");
+
+  fieldGradient.append("stop")
+  		.attr("id", "startColor")
+		.attr("offset", "0%")
+  		.attr("stop-color", defaultColor());
+
+  fieldGradient.append("stop")
+  		.attr("id", "endColor")
+  		.attr("offset", "100%")
+  		.attr("stop-color", defaultColor());
 
   filter.append("feGaussianBlur")
       .attr("in", "SourceAlpha")
@@ -221,6 +306,8 @@ function createPaths()
 	createPath("pipe10","pipe","m 1132.7399,305.90537 0,48.46875 c 6.7502,-1.9227 12.5986,-1.87231 19.5937,0.1875 l 0,-48.65625 z m 19.5937,118.0625 c -3.5907,1.05511 -6.8915,1.59375 -10.0937,1.59375 -3.0628,0 -6.1897,-0.4383 -9.5,-1.375 l 0,37.3125 c 0,10.8 -8.7938,19.59375 -19.5938,19.59375 l -33.4999,-0.28125 0,19.59375 33.4999,0.28125 c 21.6,0 39.1875,-17.5875 39.1875,-39.1875 z");
 	createPath("pipe11","pipe","m 573.10955,480.76826 c -10.8,0 -19.6,-8.8 -19.6,-19.6 l 0,-200.7 c 0,-10.8 8.8,-19.6 19.6,-19.6 l 39.9,0 0,-19.6 -39.9,0 c -21.6,0 -39.2,17.6 -39.2,39.2 l 0,200.7 c 0,21.6 17.6,39.2 39.2,39.2 l 407.85914,0 0,-19.6 z");
 	createPath("pipe15","pipe","m 1216.2095,305.96826 v 336.2 c 0,10.8 -8.8,19.6 -19.6,19.6 H 602.30955 c -21.6,0 -39.2,17.6 -39.2,39.2 v 60.1 h 19.6 v -60.2 c 0,-10.8 8.8,-19.6 19.6,-19.6 h 594.29995 c 21.6,0 39.2,-17.6 39.2,-39.2 v -336.1 h -19.6 z");
+	createPath("pipe16","field","m 539.70209,923.20435 -0.28306,0 c -23.49405,-0.28224 -42.74219,-19.19232 -42.74219,-42.61824 V 757.52947 c 0,-12.7008 -10.47326,-22.86144 -23.21099,-22.86144 -12.73774,0 -23.211,10.44288 -23.211,22.86144 v 123.05664 c 0,23.42592 -19.24813,42.61824 -42.74219,42.61824 v 0 l -0.28306,0 c -23.49405,-0.28224 -42.74219,-19.19232 -42.74219,-42.61824 V 757.52947 c 0,-12.7008 -10.47325,-22.86144 -23.21099,-22.86144 -12.73774,0 -23.21099,10.44288 -23.21099,22.86144 v 123.05664 c 0,23.42592 -19.24814,42.61824 -42.74219,42.61824 v 0 l -0.28306,0 c -23.49405,-0.28224 -42.74219,-19.19232 -42.74219,-42.61824 V 759.78739 h 19.81426 v 120.79872 c 0,12.7008 10.47325,22.86144 23.21099,22.86144 12.73774,0 23.21099,-10.44288 23.21099,-22.86144 V 757.52947 c 0,-23.42592 19.24814,-42.61824 42.74219,-42.61824 v 0 l 0.28306,0 c 23.49405,0.28224 42.74219,19.19232 42.74219,42.61824 v 123.05664 c 0,12.7008 10.47325,22.86144 23.21099,22.86144 12.73774,0 23.21099,-10.44288 23.21099,-22.86144 V 757.52947 c 0,-23.42592 19.24814,-42.61824 42.7422,-42.61824 v 0 l 0.28306,0 c 23.49405,0.28224 42.74219,19.19232 42.74219,42.61824 v 123.05664 c 0,12.7008 10.47325,22.86144 23.21099,22.86144 12.73774,0 23.21099,-10.44288 23.21099,-22.86144 V 759.78739 h 19.81426 v 120.79872 c -0.28306,23.42592 -19.24814,42.336 -43.02525,42.61824 l 0,0 z");
+
 	/*Create all rectangular pipes*/
 	createRect("pipe1","rect","232.30956","166.36826","19.6","594.70001");
 	createRect("rect4","rect","232.30956","146.86826","19.6","19.6");
@@ -252,7 +339,7 @@ function createPaths()
     createTemp("t8","T8",30,100,0,0,1035,296);
     createTemp("t9","T9",30,100,60,0,880,670);
 
-	createRect("rect20","ghx","213","762.2","393.2","143.5");
+	//createRect("rect20","ghx","213","762.2","393.2","143.5");
 }
 
 /*------------------------------------------------------------------
@@ -285,13 +372,13 @@ function updateAll(index, duration)
 		paths[pathkey].redrawPaths(value);
 	}
 
-	for(rectkey in rects)
-	{
-		if(rects[rectkey].name != "rect20"){
-			var value = getRandomHeat(rects[rectkey]);
-			rects[rectkey].redrawPaths(value);
-		}
-	}
+	// for(rectkey in rects)
+	// {
+	// 	if(rects[rectkey].name != "rect20"){
+	// 		var value = getRandomHeat(rects[rectkey]);
+	// 		rects[rectkey].redrawPaths(value);
+	// 	}
+	// }
 }
 
 function updatetempGauges(index, duration)
@@ -367,6 +454,63 @@ function updatetempGauges(index, duration)
 	}
 	currentIndex = index;
 
+
+	//update Field Gradient
+	var startColor, endColor;
+
+	if(data[index].ghx.lwt < 38){
+		startColor = colderColor();
+	} else if (data[index].ghx.lwt >= 38 && data[index].ghx.lwt < 46) {
+		startColor = coldColor();
+	} else if (data[index].ghx.lwt >= 46 && data[index].ghx.lwt < 54) {
+		startColor = coolerColor();
+	} else if (data[index].ghx.lwt >= 54 && data[index].ghx.lwt < 62) {
+		startColor = coolColor();
+	} else if (data[index].ghx.lwt >= 62 && data[index].ghx.lwt < 70) {
+		startColor = lessCoolColor();
+	} else if (data[index].ghx.lwt >= 70 && data[index].ghx.lwt < 78) {
+		startColor = lessWarmColor();
+	} else if (data[index].ghx.lwt >= 78 && data[index].ghx.lwt < 86) {
+		startColor = warmColor();
+	} else if (data[index].ghx.lwt >= 86 && data[index].ghx.lwt < 94) {
+		startColor = warmerColor();
+	} else if (data[index].ghx.lwt > 94 && data[index].ghx.lwt < 102) {
+		startColor = hotColor();
+	} else if (data[index.ghx.lwt] > 102) {
+		startColor = hotterColor();
+	}
+
+	if(data[index].ghx.ewt < 38){
+		endColor = colderColor();
+	} else if (data[index].ghx.ewt >= 38 && data[index].ghx.ewt < 46) {
+		endColor = coldColor();
+	} else if (data[index].ghx.ewt >= 46 && data[index].ghx.ewt < 54) {
+		endColor = coolerColor();
+	} else if (data[index].ghx.ewt >= 54 && data[index].ghx.ewt < 62) {
+		endColor = coolColor();
+	} else if (data[index].ghx.ewt >= 62 && data[index].ghx.ewt < 70) {
+		endColor = lessCoolColor();
+	} else if (data[index].ghx.ewt >= 70 && data[index].ghx.ewt < 78) {
+		endColor = lessWarmColor();
+	} else if (data[index].ghx.ewt >= 78 && data[index].ghx.ewt < 86) {
+		endColor = warmColor();
+	} else if (data[index].ghx.ewt >= 86 && data[index].ghx.ewt < 94) {
+		endColor = warmerColor();
+	} else if (data[index].ghx.ewt > 94 && data[index].ghx.ewt < 102) {
+		endColor = hotColor();
+	} else if (data[index.ghx.ewt] > 102) {
+		endColor = hotterColor();
+	}
+
+
+	fieldGradient.select("#startColor")
+        .transition()
+        .attr("stop-color", startColor);
+	fieldGradient.select("#endColor")
+        .transition()
+        .attr("offset", "100%")
+        .attr("stop-color", endColor);
+
 	//var value = getRandomHeat(paths[pathkey]);
 	//paths[pathkey].redrawPaths(value);
 
@@ -415,62 +559,6 @@ function updatetempGauges(index, duration)
 	}
 }
 
-// function updatePaths(index, duration)
-// {
-// 		//var value = getRandomHeat(paths[pathkey]);
-// 		//paths[pathkey].redrawPaths(value);
-
-// 		//pumps & mods
-// 		var pumpone = data[index].nodes[1].flow; //CP1
-// 		var pumptwo = data[index].nodes[2].flow; //BTU2
-
-// 		paths["pump1"].redrawPaths(pumpone);
-// 		paths["pump2"].redrawPaths(pumptwo);
-// 		paths["pump3"].redrawPaths(ffour);
-// 		rects["rect19"].redrawPaths(pumpone);
-// 		rects["rect16"].redrawPaths(ftwo);
-// 		rects["rect17"].redrawPaths(fthree);
-// 		rects["rect18"].redrawPaths(ffour);
-// 		paths["valve3"].redrawPaths(ffour);
-
-
-// 		//pipes
-// 		rects["pipe1"].redrawPaths(tone.lwt);
-// 		rects["pipe8"].redrawPaths(teight.lwt);
-// 		rects["pipe55"].redrawPaths(tfour.lwt);
-// 		rects["rect14"].redrawPaths(tsix.lwt);
-// 		rects["rect12"].redrawPaths(teight.lwt);
-
-// 		paths["pipe5"].redrawPaths(tfour.ewt);
-// 		paths["pipe7"].redrawPaths(teight.ewt);
-// 		paths["pipe9"].redrawPaths(tsix.lwt);
-// 		paths["pipe15"].redrawPaths(tnine.ewt);
-
-// 		if(pumpone > 0){
-// 			rects["rect4"].redrawPaths(ttwo.lwt);
-// 			paths["pipe2"].redrawPaths(ttwo.ewt);
-// 			paths["pipe3"].redrawPaths(ttwo.lwt);
-// 		} else {
-// 			rects["rect4"].redrawPaths(tone.lwt);
-// 			paths["pipe2"].redrawPaths(0);
-// 			paths["pipe3"].redrawPaths(0);
-// 		}
-
-// 		if(ffour > 0){
-// 			rects["pipe56"].redrawPaths(0);
-// 			rects["rect13"].redrawPaths(0);
-// 			rects["rect6"].redrawPaths(teight.ewt);
-// 			paths["pipe10"].redrawPaths(tsev.ewt);
-// 			paths["pipe11"].redrawPaths(tsev.lwt);
-// 		} else {
-// 			rects["pipe56"].redrawPaths(tfour.lwt);
-// 			rects["rect13"].redrawPaths(teight.lwt);
-// 			rects["rect6"].redrawPaths(tfour.lwt);
-// 			paths["pipe10"].redrawPaths(0);
-// 			paths["pipe11"].redrawPaths(0);
-// 		}
-// }
-
 function updateGhx(index) {
 	var value = data[index].ghx.ewt//getRandomValue(undefined, -60, 40); //get random value
 	redrawGhx(value);
@@ -493,72 +581,4 @@ function getRandomValue(gauge,min,max){
 	min = undefined != min ? min : gauge.config.min;
 	max = undefined != max ? max : gauge.config.max;
     return Math.floor(min + (max - min) *  Math.random());
-}
-
-/*------------------------------------------------------------------
-7. [Define Colors]
-------------------------------------------------------------------*/
-
-function getRandomHeat(){
-	return Math.floor(5 * Math.random());
-}
-
-function defaultColor(){
-	return "#424242";
-}
-
-function colderColor(){
-	return "#003399";
-}
-
-function coldColor(){
-	return "#0047d5";
-}
-
-function coolerColor(){
-	return "#004eff";
-}
-
-function coolColor(){
-	return "#00aeff";
-}
-
-function lessCoolColor(){
-	return "#89daff";
-}
-
-function lessWarmColor(){
-	return "#fff661";
-}
-
-function warmColor(){
-	return "#ffc600";
-}
-
-function warmerColor(){
-	return "#ffa200";
-}
-
-function hotColor(){
-	return "#ff5a00";
-}
-
-function hotterColor(){
-	return "#c82100";
-}
-
-function inactive(){
-	return "#313131";
-}
-
-function active(){
-	return "#92CD00";
-}
-
-function gaugeColor(){
-	return "#303030";
-}
-
-function textColor(){
-	return "#dfdfdf";
 }

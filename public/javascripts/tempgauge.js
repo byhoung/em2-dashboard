@@ -19,8 +19,8 @@ function Temp(placeholderName, configuration)
 
     this.config.size = this.config.size;
     this.config.raduis = this.config.size * 0.97 / 2;
-    this.config.min = undefined != configuration.min ? configuration.min : 0; 
-    this.config.max = undefined != configuration.max ? configuration.max : 100; 
+    this.config.min = undefined !== configuration.min ? configuration.min : 0; 
+    this.config.max = undefined !== configuration.max ? configuration.max : 100; 
 
     this.config.transitionDuration = configuration.transitionDuration || 500;
 
@@ -31,7 +31,7 @@ function Temp(placeholderName, configuration)
     this.config.cy = this.config.size / 2;
     this.config.inner = this.config.size / (25/9.5);
     this.config.outer = this.config.size / (25/12);
-  }
+  };
 
   this.render = function()
   {
@@ -105,7 +105,7 @@ function Temp(placeholderName, configuration)
 
     //console.log(this.this.body.select("d"));
     this.redraw(this.config.min, 0, 500);
-  }
+  };
 
     this.redraw = function(value, peak, duration)
     {
@@ -211,23 +211,23 @@ function Temp(placeholderName, configuration)
             .attr("stroke", "#ffffff")
             .attr("stroke-width", 1);
 
-    }
+    };
 
     this.valueToDegrees = function(value)
     {
       return Math.floor(value / this.config.max * 360);
-    }
+    };
   
     this.valueToRadians = function(value)
     {
       return this.valueToDegrees(value) * Math.PI / 180;
-    }
+    };
 
     this.valueToPoint = function(value, factor)
     {
       return {  x: - this.config.raduis * factor * Math.cos(this.valueToRadians(value + 25)),
                 y: - this.config.raduis * factor * Math.sin(this.valueToRadians(value + 25))     };
-    }
+    };
 
   this.configure(configuration);  
 }

@@ -35,7 +35,7 @@ $(function(){
                 iterateData(key, value);
             });
     }); 
-  },10000);
+  },1000);
 
   function iterateData(key, value){
       delay += interval;

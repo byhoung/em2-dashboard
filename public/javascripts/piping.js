@@ -17,6 +17,15 @@ function Path(name, pathConfig)
 							.attr("stroke-miterlimit", 10)
 							.attr("d", this.pathConfig.path);
 			}
+			if(this.pathConfig.check == ("field"))
+			{
+				gBody.append("svg:path")
+							.attr("id", this.name)
+							.attr("class", "piping")
+							.attr("fill", 'url(#fieldGradient)')
+							.attr("stroke-miterlimit", 10)
+							.attr("d", this.pathConfig.path);
+			}
 			if(this.pathConfig.check == ("rect"))
 			{
 				gBody.append("svg:rect")
@@ -94,15 +103,13 @@ function Path(name, pathConfig)
 							    .attr("class", "bar")
 							    .attr("points", barStart+","+0+" "+barStart+","+0+" "+barStart+","+ghxHeight+" "+barStart+","+ghxHeight);
 			}
-		}
+		};
 
 		this.redrawPaths = function(value)
 		{
 			this.body = d3.select("#" + name);
-			console.log(this.body + value);
 				if(this.body.attr('class') === "piping"){
-					console.log(value);
-					if(value == 0){
+					if(value === 0){
 						this.body.transition()
 								.duration(2000) 
 								.style("fill", defaultColor()); //default
@@ -178,5 +185,5 @@ function Path(name, pathConfig)
 							break;
 						}
 				}
-		}
+		};
 };
