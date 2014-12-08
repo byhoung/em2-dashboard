@@ -108,82 +108,70 @@ function Path(name, pathConfig)
 		this.redrawPaths = function(value)
 		{
 			this.body = d3.select("#" + name);
-				if(this.body.attr('class') === "piping"){
+				if(this.body.attr('class') === 'piping'){
 					if(value === 0){
 						this.body.transition()
 								.duration(2000) 
-								.style("fill", defaultColor()); //default
+								.style('fill', defaultColor()); //default
 					} else if(value < 38) {
 						this.body.transition()
 								.duration(2000)
 								//Cold
-								.style("fill", colderColor());
+								.style('fill', colderColor());
 					} else if(value >= 38 && value < 46) {
 						this.body.transition()
 								.duration(2000)
 								//Cool
-								.style("fill", coldColor());
+								.style('fill', coldColor());
 					} else if (value >= 46 && value < 54) {
 							this.body.transition()
 									.duration(2000)
 									//Warm
-									.style("fill", coolerColor());
+									.style('fill', coolerColor());
 					} else if (value >= 54 && value < 62) {
 							this.body.transition()
 									.duration(2000)
 									//Warm
-									.style("fill", coolColor());
+									.style('fill', coolColor());
 					} else if (value >= 62 && value < 70) {
 							this.body.transition()
 									.duration(2000)
 									//Warm
-									.style("fill", lessCoolColor());
+									.style('fill', lessCoolColor());
 					} else if (value >= 70 && value < 78) {
 							this.body.transition()
 									.duration(2000)
 									//Warm
-									.style("fill", lessWarmColor());
+									.style('fill', lessWarmColor());
 					} else if (value >= 78 && value < 86) {
 							this.body.transition()
 									.duration(2000)
 									//Warm
-									.style("fill", warmColor());
+									.style('fill', warmColor());
 					} else if (value >= 86 && value < 94) {
 							this.body.transition()
 									.duration(2000)
 									//Warm
-									.style("fill", warmerColor());
+									.style('fill', warmerColor());
 					} else if (value >= 94 && value < 102) {
 							this.body.transition()
 									.duration(2000)
 									//Warm
-									.style("fill", hotColor());
+									.style('fill', hotColor());
 					} else {
 						this.body.transition()
 								.duration(2000)
 								//Hot
-								.style("fill", hotterColor());
+								.style('fill', hotterColor());
 					}
-				} else if (this.body.attr('class') === "pump" || this.body.attr('class') === "module"){
-						if(value === 0) {
-							this.body
-								.style("fill", defaultColor());
-						} else if(value >= 0) {
-							this.body
-								.style("fill", hotColor());
-						}
-				} else {
-						switch(value)
-						{
-							case 0:
-								this.body
-									.style("-webkit-transform", "rotate(0deg)");
-							break;
-							case 1:
-								this.body
-									.style("-webkit-transform", "rotate(90deg)");
-							break;
-						}
+				} else if(this.body.attr('class') === 'valve') {
+					if(value === 0){
+						this.body
+							.style('-webkit-transform', 'rotate(90deg)');
+					} else {
+						this.body
+							.style('-webkit-transform', 'rotate(0deg)');
+					}
 				}
 		};
 };

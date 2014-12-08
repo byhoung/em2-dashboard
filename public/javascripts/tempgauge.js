@@ -117,28 +117,6 @@ function Temp(placeholderName, configuration)
         .outerRadius(this.config.outer)
         .startAngle(0);
 
-
-      // switch(true)
-      //       {
-      //         case (degreeValue >= 270):
-      //         //Hot
-      //           newColor = hotterColor();
-      //           break;
-      //         case (degreeValue >= 180):
-      //         //Warm
-      //           newColor = warmerColor();
-      //           break;
-      //         case (degreeValue >= 90):
-      //         //Cool
-      //           newColor = coolerColor();
-      //           break;
-      //         default:
-      //         //Cold
-      //           newColor = colderColor();
-
-      //           break;
-      //       }
-
       if(value < 38) {
         newColor = colderColor();
       } else if(value >= 38 && value < 46) {

@@ -14,74 +14,6 @@ window.onload = function initialize()
 	//setInterval(updateGhx, 5000);
 };
 
-/*------------------------------------------------------------------
-7. [Define Colors]
-------------------------------------------------------------------*/
-
-function getRandomHeat(){
-	return Math.floor(5 * Math.random());
-}
-
-function defaultColor(){
-	return "#424242";
-}
-
-function colderColor(){
-	return "#003399";
-}
-
-function coldColor(){
-	return "#0047d5";
-}
-
-function coolerColor(){
-	return "#004eff";
-}
-
-function coolColor(){
-	return "#00aeff";
-}
-
-function lessCoolColor(){
-	return "#89daff";
-}
-
-function lessWarmColor(){
-	return "#fff661";
-}
-
-function warmColor(){
-	return "#ffc600";
-}
-
-function warmerColor(){
-	return "#ffa200";
-}
-
-function hotColor(){
-	return "#ff5a00";
-}
-
-function hotterColor(){
-	return "#c82100";
-}
-
-function inactive(){
-	return "#313131";
-}
-
-function active(){
-	return "#92CD00";
-}
-
-function gaugeColor(){
-	return "#303030";
-}
-
-function textColor(){
-	return "#dfdfdf";
-}
-
 function initializeWindow(){
 
 	fill = d3.scale.category20(),
@@ -581,4 +513,72 @@ function getRandomValue(gauge,min,max){
 	min = undefined != min ? min : gauge.config.min;
 	max = undefined != max ? max : gauge.config.max;
     return Math.floor(min + (max - min) *  Math.random());
+}
+
+/*------------------------------------------------------------------
+7. [Define Colors]
+------------------------------------------------------------------*/
+
+function getRandomHeat(){
+	return Math.floor(5 * Math.random());
+}
+
+function defaultColor(){
+	return "#424242";
+}
+
+function colderColor(){
+	return "#003399";
+}
+
+function coldColor(){
+	return "#0047d5";
+}
+
+function coolerColor(){
+	return "#004eff";
+}
+
+function coolColor(){
+	return "#00aeff";
+}
+
+function lessCoolColor(){
+	return "#89daff";
+}
+
+function lessWarmColor(){
+	return "#fff661";
+}
+
+function warmColor(){
+	return "#ffc600";
+}
+
+function warmerColor(){
+	return "#ffa200";
+}
+
+function hotColor(){
+	return "#ff5a00";
+}
+
+function hotterColor(){
+	return "#c82100";
+}
+
+function inactive(){
+	return "#313131";
+}
+
+function active(){
+	return "#92CD00";
+}
+
+function gaugeColor(){
+	return "#303030";
+}
+
+function textColor(){
+	return "#dfdfdf";
 }

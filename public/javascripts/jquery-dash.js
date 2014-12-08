@@ -27,15 +27,22 @@ $(function(){
 [Read & Iterate JSON]
 ------------------------------------------------------------------*/
   setInterval(function(){
-      $.getJSON('trillium/data', function (info) {
-        data = info;
-        var size = Number(data.length);
-        rangeControl(size);
-        $.each(data, function (key, value) {     
-                iterateData(key, value);
-            });
+    getData();
+  },10000);
+
+  function getData() {
+    $.getJSON('trillium/data', function (info) {
+      data = info;
+      console.log(data);
+      var size = Number(data.length);
+      rangeControl(size);
+      $.each(data, function (key, value) {     
+              iterateData(key, value);
+      });
     }); 
-  },1000);
+  }
+
+  getData();
 
   function iterateData(key, value){
       delay += interval;
@@ -54,13 +61,13 @@ $(function(){
       if(key == value.timestamp) {
         timerHandler[key] = setTimeout(function(){
             //Display DateTime
-            $(".hour").text(date + ', ' + month + ' ' + year + ' ' + hour + ':00');//data[key].date
+            $(".hour").text(month + ' ' + date + ', ' + year + ' ' + hour + ':00');//data[key].date
             updateFlows(key, duration);
             updatetempGauges(key, duration);
           }, 500);
       } else {timerHandler[key] = setTimeout(function(){
           //Display DateTime
-          $(".hour").text(date + ', ' + month + ' ' + year + ' ' + hour + ':00');//data[key].date
+          $(".hour").text(month + ' ' + date + ', ' + year + ' ' + hour + ':00');//data[key].date
           updatetempGauges(key, duration);
           updateGhx(key);
         }, delay);
